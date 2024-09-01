@@ -1,5 +1,11 @@
 # Fluentcord
 
+<table>
+  <tr>
+    <td><img src="/.readme/FluentcordUIPreview.png"></td>
+  </tr>
+</table>
+
 <a href="https://discord.gg/PkjR2y2rqs" target="_blank"><img src="https://img.shields.io/discord/830063409000087612?color=5865F2&logo=discord&logoColor=white" alt="Discord"></a>
 
 </br>
