@@ -1,4 +1,4 @@
-# Fluentcord
+# Fluentcord <a href="https://discord.gg/PkjR2y2rqs" target="_blank"><img src="https://img.shields.io/discord/830063409000087612?color=5865F2&logo=discord&logoColor=white" alt="Discord"></a>
 
 <table>
   <tr>
@@ -6,11 +6,9 @@
   </tr>
 </table>
 
-<a href="https://discord.gg/PkjR2y2rqs" target="_blank"><img src="https://img.shields.io/discord/830063409000087612?color=5865F2&logo=discord&logoColor=white" alt="Discord"></a>
-
-</br>
+<br/>
 Fluentcord is an alternative Discord client for Windows, Linux, and Mac, designed with a focus on resource efficiency and performance.
-</br></br>
+<br/><br/>
 Unlike many other Discord clients that use Electron, Fluentcord is written in C#, ensuring that it consumes fewer system
 resources while still offering most of Discord's features. While Fluentcord is still in development, it already provides a
 rich set of functionalities and includes support for voice communication.
