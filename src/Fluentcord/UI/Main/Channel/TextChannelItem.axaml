@@ -1,0 +1,47 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:guildChannels="clr-namespace:Fluentcord.Models.GuildChannels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Channel.TextChannelItem"
+             x:DataType="guildChannels:TextChannelModel"
+             Loaded="Control_OnLoaded"
+             Unloaded="Control_OnUnloaded">
+    <Design.DataContext>
+        <guildChannels:TextChannelModel />
+    </Design.DataContext>
+
+    <ListBoxItem
+        x:Name="ChannelItemControl"
+        Tapped="OnChannelClicked"
+        MinHeight="36"
+        Padding="0"
+        BorderThickness="0"
+        Margin="6,0,7,0"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Left">
+        <StackPanel
+            Margin="13,4,0,0"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Spacing="8">
+            <Path
+                Data="{StaticResource Hashtag}"
+                Width="15"
+                Height="18"
+                VerticalAlignment="Center"
+                Stretch="Uniform"
+                Fill="{DynamicResource TextFillColorTertiaryBrush}" />
+
+            <TextBlock
+                Text="{Binding Name, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                FontSize="15"
+                MaxWidth="145"
+                VerticalAlignment="Center"
+                Margin="0,0,0,4"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+    </ListBoxItem>
+</UserControl>

@@ -1,0 +1,32 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
+             xmlns:main="clr-namespace:Fluentcord.UI.Main"
+             xmlns:guilds="clr-namespace:Fluentcord.UI.Main.Guild"
+             xmlns:members="clr-namespace:Fluentcord.UI.Main.Members"
+             xmlns:channel="clr-namespace:Fluentcord.UI.Main.Channel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.Views.MainView"
+             x:DataType="viewModels:MainViewModel">
+    <Design.DataContext>
+        <viewModels:MainViewModel />
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="Auto,Auto,*">
+        <guilds:GuildList Grid.Column="0" />
+
+        <main:Sidebar Grid.Column="1" />
+
+        <Grid RowDefinitions="Auto,*" Grid.Column="2">
+            <channel:ChannelHeader Grid.Row="0" />
+
+            <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                <main:ChatPanel Grid.Column="0" />
+
+                <members:MemberList Grid.Column="1" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

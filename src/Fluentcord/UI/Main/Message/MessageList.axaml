@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:messages="clr-namespace:Fluentcord.Models.Messages"
+             xmlns:chatMessages="clr-namespace:Fluentcord.UI.Main.Message"
+             xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
+             xmlns:converters="clr-namespace:Fluentcord.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Message.MessageList"
+             x:DataType="viewModels:MainViewModel"
+             Loaded="Control_OnLoaded"
+             Unloaded="Control_OnUnloaded">
+    <UserControl.Resources>
+        <converters:MessageModelToRepliedMessageConverter x:Key="MessageModelToRepliedMessageConverter" />
+    </UserControl.Resources>
+    
+    <Design.DataContext>
+        <viewModels:MainViewModel />
+    </Design.DataContext>
+
+    <ScrollViewer x:Name="MessagesScrollViewer">
+        <ItemsControl
+            ItemsSource="{Binding Messages}"
+            Margin="0,0,50,0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel VerticalAlignment="Bottom" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="messages:MessageModel">
+                    <StackPanel
+                        Orientation="Vertical"
+                        Margin="15,0,0,15">
+                        <!-- The message replied to -->
+                        <ContentControl Content="{Binding Converter={StaticResource MessageModelToRepliedMessageConverter}}" />
+          
+                        <chatMessages:Message />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>

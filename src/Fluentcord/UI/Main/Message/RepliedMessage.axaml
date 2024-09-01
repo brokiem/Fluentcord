@@ -1,0 +1,56 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:messages="clr-namespace:Fluentcord.Models.Messages"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Message.RepliedMessage"
+             x:DataType="messages:MessageModel">
+    <Design.DataContext>
+        <messages:MessageModel />
+    </Design.DataContext>
+    
+    <StackPanel
+        Orientation="Horizontal"
+        Spacing="4"
+        Margin="0,0,10,3"
+        IsVisible="{CompiledBinding IsReply}">
+        <Polyline
+            Stroke="{DynamicResource TextFillColorTertiaryBrush}"
+            StrokeThickness="1"
+            VerticalAlignment="Center"
+            Margin="20,17,0,0"
+            Points="0,0 0,-10 32,-10" />
+        <!-- Replied Message Author Avatar -->
+        <Border
+            MaxWidth="16"
+            MaxHeight="16"
+            CornerRadius="8"
+            ClipToBounds="True"
+            VerticalAlignment="Center">
+            <Image
+                asyncImageLoader:ImageLoader.Source="{CompiledBinding MessageReference.Message.Author.AvatarUrl}" />
+        </Border>
+        <!-- Replied Message Author Name -->
+        <TextBlock
+            Text="{CompiledBinding MessageReference.Message.Author.Username}"
+            FontSize="13"
+            FontWeight="Medium"
+            VerticalAlignment="Center"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <!-- Replied Message Content -->
+        <TextBlock
+            Text="{CompiledBinding MessageReference.Message.Content}"
+            FontSize="13"
+            VerticalAlignment="Center"
+            TextWrapping="NoWrap"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <!-- Attachment indicator -->
+        <PathIcon
+            Data="{StaticResource ImageRegular}"
+            Width="15" Height="15"
+            IsVisible="{CompiledBinding MessageReference.Message.Attachments.Length}"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+    </StackPanel>
+</UserControl>

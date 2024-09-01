@@ -1,0 +1,35 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Fluentcord.App"
+             xmlns:local="using:Fluentcord"
+             xmlns:sty="using:FluentAvalonia.Styling"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             RequestedThemeVariant="Dark">
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <sty:FluentAvaloniaTheme />
+        <StyleInclude Source="avares://Fluentcord/Icons.axaml" />
+        
+        <Style>
+            <Style.Resources>
+                <FontFamily x:Key="SegoeFluentIconsFont">/Assets/Fonts/SegoeFluentIcons.ttf#Segoe Fluent Icons</FontFamily>
+            </Style.Resources>
+
+            <Style Selector="controls|FontIcon">
+                <Setter Property="FontFamily" Value="{StaticResource SegoeFluentIconsFont}" />
+            </Style>
+        </Style>
+        
+        <!-- Make the scrollbar right aligned -->
+        <Style Selector="ScrollViewer ScrollBar">
+            <Setter Property="Margin" Value="0,0,-2,0" />
+        </Style>
+        
+        <Style Selector="CaptionButtons">
+            <Setter Property="MaxHeight" Value="20" />
+        </Style>
+    </Application.Styles>
+</Application>

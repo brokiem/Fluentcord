@@ -1,0 +1,37 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:guildChannels="clr-namespace:Fluentcord.Models.GuildChannels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Channel.CategoryChannelItem"
+             x:DataType="guildChannels:CategoryChannelModel">
+    <Design.DataContext>
+        <guildChannels:CategoryChannelModel />
+    </Design.DataContext>
+
+    <StackPanel
+        Tapped="OnChannelClicked"
+        Margin="5,19,0,0"
+        Orientation="Horizontal"
+        VerticalAlignment="Center"
+        Spacing="6">
+        <Path
+            Data="{StaticResource ArrowDown}"
+            Width="8"
+            Height="8"
+            VerticalAlignment="Center"
+            Stretch="Uniform"
+            Fill="{DynamicResource TextFillColorSecondaryBrush}" />
+
+        <TextBlock
+            Text="{Binding Name, Mode=OneWay}"
+            TextTrimming="CharacterEllipsis"
+            FontSize="11"
+            MaxWidth="145"
+            FontWeight="Medium"
+            VerticalAlignment="Center"
+            Margin="0,0,0,4"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+    </StackPanel>
+</UserControl>

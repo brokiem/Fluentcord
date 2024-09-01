@@ -1,0 +1,69 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:messages="clr-namespace:Fluentcord.Models.Messages"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Message.Message"
+             x:DataType="messages:MessageModel">
+    <Design.DataContext>
+        <messages:MessageModel />
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="Auto,*">
+        <!-- Author Avatar -->
+        <Border
+            Grid.Column="0"
+            Width="40"
+            Height="40"
+            CornerRadius="20"
+            ClipToBounds="True"
+            VerticalAlignment="Top"
+            Margin="0,5,0,0">
+            <Image
+                asyncImageLoader:ImageLoader.Source="{CompiledBinding Author.AvatarUrl}" />
+        </Border>
+        <!-- Message Content -->
+        <StackPanel
+            Grid.Column="1"
+            Margin="15,2,10,0"
+            Spacing="4"
+            Orientation="Vertical">
+            <!-- Author Name and Timestamp -->
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="9"
+                VerticalAlignment="Center">
+                <TextBlock
+                    FontSize="15"
+                    Text="{CompiledBinding Author.Username}"
+                    VerticalAlignment="Bottom" />
+                <TextBlock
+                    FontSize="11"
+                    Text="{CompiledBinding Timestamp}"
+                    VerticalAlignment="Bottom"
+                    Padding="0,0,0,1"
+                    Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
+
+            <!-- Message Text -->
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock
+                    FontSize="15"
+                    TextWrapping="Wrap"
+                    Text="{CompiledBinding Content}"
+                    VerticalAlignment="Center"
+                    Margin="0,0,3,0"
+                    IsVisible="{CompiledBinding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                <TextBlock
+                    FontSize="10"
+                    Text="(edited)"
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                    IsVisible="{CompiledBinding IsEdited}" />
+            </WrapPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

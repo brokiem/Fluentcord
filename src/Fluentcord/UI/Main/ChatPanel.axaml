@@ -1,0 +1,30 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:message="clr-namespace:Fluentcord.UI.Main.Message"
+             xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.ChatPanel"
+             x:DataType="viewModels:MainViewModel">
+    <Design.DataContext>
+        <viewModels:MainViewModel />
+    </Design.DataContext>
+
+    <Grid 
+        Background="{DynamicResource ControlFillColorSecondaryBrush}"
+        RowDefinitions="*,Auto">
+        <!-- Message list -->
+        <message:MessageList Grid.Row="0" />
+
+        <!-- Message Input -->
+        <Panel Grid.Row="1">
+            <TextBox
+                MaxHeight="400"
+                Margin="15,0,15,30"
+                VerticalAlignment="Bottom"
+                Watermark="{CompiledBinding SelectedChannel.Name, StringFormat='Message #{0}', FallbackValue=''}"
+                TextWrapping="Wrap" />
+        </Panel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,40 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:Fluentcord.Models"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Guild.GuildItem"
+             x:DataType="models:GuildModel"
+             Loaded="Control_OnLoaded"
+             Unloaded="Control_OnUnloaded">
+    <Design.DataContext>
+        <models:GuildModel />
+    </Design.DataContext>
+
+    <ListBoxItem x:Name="GuildItemControl">
+        <Border
+            Width="48"
+            Height="48"
+            CornerRadius="24"
+            ClipToBounds="True"
+            Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}">
+            <Panel>
+                <Image
+                    asyncImageLoader:ImageLoader.Source="{Binding IconUrl}"
+                    IsVisible="{Binding IconUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                <TextBlock
+                    Text="{Binding Initials}"
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    Margin="0,0,0,5"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    IsVisible="{Binding IconUrl, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center" />
+            </Panel>
+        </Border>
+    </ListBoxItem>
+</UserControl>
