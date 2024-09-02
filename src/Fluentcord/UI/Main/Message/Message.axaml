@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:messages="clr-namespace:Fluentcord.Models.Messages"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:attachment="clr-namespace:Fluentcord.Models.Messages.Attachment"
+             xmlns:converters="clr-namespace:Fluentcord.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Message.Message"
              x:DataType="messages:MessageModel">
@@ -11,6 +13,10 @@
         <messages:MessageModel />
     </Design.DataContext>
 
+    <UserControl.Resources>
+        <converters:MessageAttachmentModelToUiConverter x:Key="MessageAttachmentModelToUiConverter" />
+    </UserControl.Resources>
+    
     <Grid ColumnDefinitions="Auto,*">
         <!-- Author Avatar -->
         <Border
@@ -64,6 +70,20 @@
                     IsVisible="{Binding IsEdited}" />
             </WrapPanel>
 
+            <!-- Message Attachments -->
+            <ItemsControl ItemsSource="{CompiledBinding Attachments}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="attachment:AttachmentModel">
+                        <ContentControl
+                            Content="{Binding Converter={StaticResource MessageAttachmentModelToUiConverter}}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </UserControl>

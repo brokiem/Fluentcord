@@ -1,0 +1,29 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:attachment="clr-namespace:Fluentcord.Models.Messages.Attachment"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Message.Attachment.ImageAttachment"
+             x:DataType="attachment:ImageAttachmentModel">
+    <Design.DataContext>
+        <attachment:ImageAttachmentModel />
+    </Design.DataContext>
+    
+    <Grid RowDefinitions="*" HorizontalAlignment="Left" Margin="0,0,5,5">
+        <!-- Attachment Image -->
+        <Border
+            CornerRadius="7"
+            ClipToBounds="True">
+            <Image
+                asyncImageLoader:ImageLoader.Source="{Binding Url}"
+                MaxWidth="550"
+                MaxHeight="349"
+                Width="{Binding Width, Mode=OneTime}"
+                Height="{Binding Height, Mode=OneTime}"
+                Stretch="Uniform"
+                HorizontalAlignment="Left" />
+        </Border>
+    </Grid>
+</UserControl>

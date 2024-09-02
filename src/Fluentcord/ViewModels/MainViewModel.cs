@@ -8,6 +8,7 @@ using Fluentcord.Models;
 using Fluentcord.Models.GuildChannels;
 using Fluentcord.Models.Members;
 using Fluentcord.Models.Messages;
+using Fluentcord.Models.Messages.Attachment;
 using Fluentcord.Models.User;
 using IdGen;
 using NetCord;
@@ -99,7 +100,13 @@ public partial class MainViewModel : ViewModelBase
                                 editedAt: null,
                                 mentionEveryone: false,
                                 mentions: [],
-                                attachments: [],
+                                attachments:
+                                [
+                                    new ImageAttachmentModel(1, "Attachment name", null, "image/png", 500,
+                                        "https://picsum.photos/536/354",
+                                        "https://picsum.photos/536/354",
+                                        false, null, 354, 536)
+                                ],
                                 embeds: [],
                                 pinned: false,
                                 webhookId: null,

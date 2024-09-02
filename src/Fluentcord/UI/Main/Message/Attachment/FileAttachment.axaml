@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:attachment="clr-namespace:Fluentcord.Models.Messages.Attachment"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Fluentcord.UI.Main.Message.Attachment.FileAttachment"
+             x:DataType="attachment:FileAttachmentModel">
+    <Design.DataContext>
+        <attachment:FileAttachmentModel />
+    </Design.DataContext>
+
+    <!-- Attachment File -->
+    <HyperlinkButton
+        Padding="15,10"
+        CornerRadius="4"
+        NavigateUri="{Binding Url}"
+        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+        <Grid ColumnDefinitions="Auto,*">
+            <PathIcon
+                Grid.Column="0"
+                Data="{StaticResource DocumentRegular}"
+                Width="29"
+                Height="39"
+                Margin="0,0,10,0"
+                Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+
+            <StackPanel Grid.Column="1">
+                <TextBlock
+                    Text="{Binding FileName}"
+                    FontSize="15"
+                    VerticalAlignment="Center"
+                    Foreground="#00a8fc" />
+                <TextBlock
+                    Text="{Binding Size}"
+                    FontSize="11"
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
+        </Grid>
+    </HyperlinkButton>
+</UserControl>

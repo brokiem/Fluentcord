@@ -17,14 +17,14 @@ public abstract class AttachmentModel : ModelBase
 
     public abstract bool Ephemeral { get; }
     public abstract AttachmentFlags? Flags { get; }
-
+    
     public static AttachmentModel CreateAttachmentModel(NetCord.Attachment attachment)
     {
         return attachment switch
         {
             ImageAttachment imageAttachment => new ImageAttachmentModel(imageAttachment),
             VoiceAttachment voiceAttachment => new VoiceAttachmentModel(voiceAttachment),
-            _ => throw new NotSupportedException()
+            _ => new FileAttachmentModel(attachment)
         };
     }
 }

@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <converters:MessageModelToRepliedMessageConverter x:Key="MessageModelToRepliedMessageConverter" />
     </UserControl.Resources>
-    
+
     <Design.DataContext>
         <viewModels:MainViewModel />
     </Design.DataContext>
@@ -34,8 +34,9 @@
                         Orientation="Vertical"
                         Margin="15,0,0,15">
                         <!-- The message replied to -->
-                        <ContentControl Content="{Binding Converter={StaticResource MessageModelToRepliedMessageConverter}}" />
-          
+                        <ContentControl
+                            Content="{Binding Converter={StaticResource MessageModelToRepliedMessageConverter}}" />
+
                         <chatMessages:Message />
                     </StackPanel>
                 </DataTemplate>
