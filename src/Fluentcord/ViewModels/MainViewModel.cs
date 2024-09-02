@@ -34,7 +34,7 @@ public partial class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         LoadMockData();
-    }   
+    }
 
     private ulong CreateId()
     {
@@ -106,8 +106,44 @@ public partial class MainViewModel : ViewModelBase
                                 messageType: MessageType.Default,
                                 applicationId: null,
                                 flags: null,
-                                messageReference: null,
-                                isReply: false
+                                messageReference: new MessageReferenceModel(new MessageModel(
+                                    messageId: messageId,
+                                    channelId: channelId,
+                                    author: new UserModel(
+                                        id: authorId,
+                                        username: $"{_faker.Name.FirstName()} {_faker.Name.LastName()}",
+                                        discriminator: 0,
+                                        globalName: null,
+                                        avatarUrl: $"https://cdn.discordapp.com/embed/avatars/{_random.Next(1, 5)}.png",
+                                        isBot: false,
+                                        isSystemUser: null,
+                                        mfaEnabled: null,
+                                        bannerUrl: null,
+                                        accentColor: null,
+                                        locale: null,
+                                        verified: null,
+                                        email: null,
+                                        flags: null,
+                                        premiumType: null,
+                                        publicFlags: null
+                                    ),
+                                    content: _faker.Rant.Review("Discord"),
+                                    isEdited: false,
+                                    createdAt: DateTimeOffset.Now,
+                                    editedAt: null,
+                                    mentionEveryone: false,
+                                    mentions: [],
+                                    attachments: [],
+                                    embeds: [],
+                                    pinned: false,
+                                    webhookId: null,
+                                    messageType: MessageType.Default,
+                                    applicationId: null,
+                                    flags: null,
+                                    messageReference: null,
+                                    isReply: false
+                                )),
+                                isReply: true
                             ));
                         }
                     }

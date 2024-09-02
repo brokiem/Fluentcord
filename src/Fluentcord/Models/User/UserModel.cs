@@ -1,4 +1,5 @@
-﻿using NetCord;
+﻿using Fluentcord.Helpers;
+using NetCord;
 
 namespace Fluentcord.Models.User;
 
@@ -8,7 +9,7 @@ public class UserModel : ModelBase
     public string Username { get; set; }
     public ushort Discriminator { get; set; }
     public string? GlobalName { get; set; }
-    public string? AvatarUrl { get; set; }
+    public string AvatarUrl { get; set; }
     public bool IsBot { get; set; }
     public bool? IsSystemUser { get; set; }
     public bool? MfaEnabled { get; set; }
@@ -25,8 +26,8 @@ public class UserModel : ModelBase
         ulong id,
         string username,
         ushort discriminator,
+        string avatarUrl,
         string? globalName = null,
-        string? avatarUrl = null,
         bool isBot = false,
         bool? isSystemUser = null,
         bool? mfaEnabled = null,
@@ -63,11 +64,11 @@ public class UserModel : ModelBase
         Username = user.Username;
         Discriminator = user.Discriminator;
         GlobalName = user.GlobalName;
-        AvatarUrl = user.GetAvatarUrl(ImageFormat.WebP).ToString(40);
+        AvatarUrl = user.GetAvatarUrl(40);
         IsBot = user.IsBot;
         IsSystemUser = user.IsSystemUser;
         MfaEnabled = user.MfaEnabled;
-        BannerUrl = user.GetBannerUrl(ImageFormat.WebP).ToString();
+        BannerUrl = user.GetBannerUrl(ImageFormat.WebP)!.ToString();
         AccentColor = Utils.Utils.NetCordColorToBrush(user.AccentColor);
         Locale = user.Locale;
         Verified = user.Verified;

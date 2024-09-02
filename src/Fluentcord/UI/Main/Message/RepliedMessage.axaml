@@ -30,18 +30,18 @@
             ClipToBounds="True"
             VerticalAlignment="Center">
             <Image
-                asyncImageLoader:ImageLoader.Source="{Binding MessageReference.Message.Author.AvatarUrl}" />
+                asyncImageLoader:ImageLoader.Source="{Binding MessageReference.AuthorAvatarUrl}" />
         </Border>
         <!-- Replied Message Author Name -->
         <TextBlock
-            Text="{Binding MessageReference.Message.Author.Username}"
+            Text="{Binding MessageReference.AuthorUsername}"
             FontSize="13"
             FontWeight="Medium"
             VerticalAlignment="Center"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         <!-- Replied Message Content -->
         <TextBlock
-            Text="{Binding MessageReference.Message.Content}"
+            Text="{Binding MessageReference.MessageContent}"
             FontSize="13"
             VerticalAlignment="Center"
             TextWrapping="NoWrap"
@@ -50,7 +50,7 @@
         <PathIcon
             Data="{StaticResource ImageRegular}"
             Width="15" Height="15"
-            IsVisible="{Binding MessageReference.Message.Attachments.Length}"
+            IsVisible="{Binding MessageReference.ContainAttachments}"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
     </StackPanel>
 </UserControl>
