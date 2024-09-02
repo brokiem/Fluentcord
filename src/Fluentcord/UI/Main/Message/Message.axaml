@@ -22,7 +22,7 @@
             VerticalAlignment="Top"
             Margin="0,5,0,0">
             <Image
-                asyncImageLoader:ImageLoader.Source="{CompiledBinding Author.AvatarUrl}" />
+                asyncImageLoader:ImageLoader.Source="{Binding Author.AvatarUrl}" />
         </Border>
         <!-- Message Content -->
         <StackPanel
@@ -37,11 +37,11 @@
                 VerticalAlignment="Center">
                 <TextBlock
                     FontSize="15"
-                    Text="{CompiledBinding Author.Username}"
+                    Text="{Binding Author.Username}"
                     VerticalAlignment="Bottom" />
                 <TextBlock
                     FontSize="11"
-                    Text="{CompiledBinding Timestamp}"
+                    Text="{Binding Timestamp}"
                     VerticalAlignment="Bottom"
                     Padding="0,0,0,1"
                     Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
@@ -52,16 +52,16 @@
                 <TextBlock
                     FontSize="15"
                     TextWrapping="Wrap"
-                    Text="{CompiledBinding Content}"
+                    Text="{Binding Content}"
                     VerticalAlignment="Center"
                     Margin="0,0,3,0"
-                    IsVisible="{CompiledBinding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                    IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
                 <TextBlock
                     FontSize="10"
                     Text="(edited)"
                     VerticalAlignment="Center"
                     Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                    IsVisible="{CompiledBinding IsEdited}" />
+                    IsVisible="{Binding IsEdited}" />
             </WrapPanel>
 
         </StackPanel>

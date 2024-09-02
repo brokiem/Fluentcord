@@ -15,7 +15,7 @@
         Orientation="Horizontal"
         Spacing="4"
         Margin="0,0,10,3"
-        IsVisible="{CompiledBinding IsReply}">
+        IsVisible="{Binding IsReply}">
         <Polyline
             Stroke="{DynamicResource TextFillColorTertiaryBrush}"
             StrokeThickness="1"
@@ -30,18 +30,18 @@
             ClipToBounds="True"
             VerticalAlignment="Center">
             <Image
-                asyncImageLoader:ImageLoader.Source="{CompiledBinding MessageReference.Message.Author.AvatarUrl}" />
+                asyncImageLoader:ImageLoader.Source="{Binding MessageReference.Message.Author.AvatarUrl}" />
         </Border>
         <!-- Replied Message Author Name -->
         <TextBlock
-            Text="{CompiledBinding MessageReference.Message.Author.Username}"
+            Text="{Binding MessageReference.Message.Author.Username}"
             FontSize="13"
             FontWeight="Medium"
             VerticalAlignment="Center"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         <!-- Replied Message Content -->
         <TextBlock
-            Text="{CompiledBinding MessageReference.Message.Content}"
+            Text="{Binding MessageReference.Message.Content}"
             FontSize="13"
             VerticalAlignment="Center"
             TextWrapping="NoWrap"
@@ -50,7 +50,7 @@
         <PathIcon
             Data="{StaticResource ImageRegular}"
             Width="15" Height="15"
-            IsVisible="{CompiledBinding MessageReference.Message.Attachments.Length}"
+            IsVisible="{Binding MessageReference.Message.Attachments.Length}"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
     </StackPanel>
 </UserControl>
