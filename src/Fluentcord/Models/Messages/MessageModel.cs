@@ -88,8 +88,8 @@ public partial class MessageModel : ModelBase
         CreatedAt = message.CreatedAt;
         EditedAt = message.EditedAt;
         MentionEveryone = message.MentionEveryone;
-        Mentions = message.MentionedUsers.Select(m => new UserModel(m.Value)).ToArray();
-        Attachments = message.Attachments.Select(a => AttachmentModel.CreateAttachmentModel(a.Value)).ToArray();
+        Mentions = message.MentionedUsers.Select(u => new UserModel(u)).ToArray();
+        Attachments = message.Attachments.Select(AttachmentModel.CreateAttachmentModel).ToArray();
         Embeds = message.Embeds.Select(e => new EmbedModel(e)).ToArray();
         Pinned = message.IsPinned;
         WebhookId = message.WebhookId;
