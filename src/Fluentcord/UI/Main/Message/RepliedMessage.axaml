@@ -6,7 +6,8 @@
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Message.RepliedMessage"
-             x:DataType="messages:MessageModel">
+             x:DataType="messages:MessageModel"
+             Margin="0,0,10,-5">
     <Design.DataContext>
         <messages:MessageModel />
     </Design.DataContext>
@@ -14,16 +15,16 @@
     <StackPanel
         Orientation="Horizontal"
         Spacing="4"
-        Margin="0,0,10,3"
         IsVisible="{Binding IsReply}">
         <Polyline
             Stroke="{DynamicResource TextFillColorTertiaryBrush}"
             StrokeThickness="1"
             VerticalAlignment="Center"
             Margin="20,17,0,0"
-            Points="0,0 0,-10 32,-10" />
+            Points="0,0 0,-12 32,-12" />
         <!-- Replied Message Author Avatar -->
         <Border
+            Margin="0,0,0,6"
             MaxWidth="16"
             MaxHeight="16"
             CornerRadius="8"
@@ -34,6 +35,7 @@
         </Border>
         <!-- Replied Message Author Name -->
         <TextBlock
+            Margin="0,0,0,6"
             Text="{Binding MessageReference.AuthorUsername}"
             FontSize="13"
             FontWeight="Medium"
@@ -41,6 +43,7 @@
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         <!-- Replied Message Content -->
         <TextBlock
+            Margin="0,0,0,6"
             Text="{Binding MessageReference.MessageContent}"
             FontSize="13"
             VerticalAlignment="Center"
@@ -48,6 +51,7 @@
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         <!-- Attachment indicator -->
         <PathIcon
+            Margin="0,0,0,6"
             Data="{StaticResource ImageRegular}"
             Width="15" Height="15"
             IsVisible="{Binding MessageReference.ContainAttachments}"
