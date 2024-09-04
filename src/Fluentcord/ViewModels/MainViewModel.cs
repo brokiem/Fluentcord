@@ -158,6 +158,11 @@ public partial class MainViewModel : ViewModelBase
                     var voiceId = CreateId();
                     GuildChannels.Add(new VoiceChannelModel(voiceId, null, "Voice channel", -1, categoryId, null, null,
                         null, guildId, [], 0, false));
+
+                    // Voice channel member
+                    var memberId = CreateId();
+                    GuildChannels.Add(new VoiceChannelMemberModel(voiceId, memberId, _faker.Internet.UserName(),
+                        "https://ia800305.us.archive.org/31/items/discordprofilepictures/discordred.png", true, true));
                 }
             }
         });

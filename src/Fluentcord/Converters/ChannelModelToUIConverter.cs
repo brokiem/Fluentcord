@@ -20,6 +20,7 @@ public class ChannelModelToUiConverter : IValueConverter
             CategoryChannelModel => new CategoryChannelItem(),
             TextChannelModel => new TextChannelItem(),
             VoiceChannelModel => new VoiceChannelItem(),
+            VoiceChannelMemberModel => new VoiceChannelMember(),
             _ => null
         };
 
