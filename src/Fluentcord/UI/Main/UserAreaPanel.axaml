@@ -31,7 +31,7 @@
                         <Image
                             Width="32"
                             Height="32"
-                            asyncImageLoader:ImageLoader.Source="https://ia800305.us.archive.org/31/items/discordprofilepictures/discordred.png" />
+                            asyncImageLoader:ImageLoader.Source="https://cdn.discordapp.com/embed/avatars/4.png" />
                     </Border>
 
                     <StackPanel
