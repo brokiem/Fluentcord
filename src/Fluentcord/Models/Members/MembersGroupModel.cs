@@ -6,5 +6,5 @@ public sealed class MembersGroupModel : MemberModel
     
     public int OnlineCount { get; set; }
 
-    public string FormattedString => $"{Name}  —  {OnlineCount}";
+    public string FormattedString => $"{Name.ToUpper()}  —  {OnlineCount}";
 }
