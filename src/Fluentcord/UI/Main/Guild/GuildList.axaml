@@ -5,6 +5,7 @@
              xmlns:models="clr-namespace:Fluentcord.Models"
              xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
              xmlns:guild="clr-namespace:Fluentcord.UI.Main.Guild"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Guild.GuildList"
              x:DataType="viewModels:MainViewModel">
@@ -14,6 +15,10 @@
 
     <ScrollViewer
         VerticalScrollBarVisibility="Hidden">
+        <Interaction.Behaviors>
+            <ia:VerticalScrollViewerAnimatedBehavior/>
+        </Interaction.Behaviors>
+        
         <StackPanel>
             <ListBoxItem
                 BorderThickness="0"

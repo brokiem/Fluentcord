@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:Fluentcord.Converters"
              xmlns:guildChannels="clr-namespace:Fluentcord.Models.GuildChannels"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Channel.ChannelList"
              x:DataType="viewModels:MainViewModel">
@@ -19,6 +20,10 @@
     
     <ScrollViewer
         Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+        <Interaction.Behaviors>
+            <ia:VerticalScrollViewerAnimatedBehavior/>
+        </Interaction.Behaviors>
+        
         <ItemsControl
             ItemsSource="{Binding GuildChannels}">
             <ItemsControl.ItemsPanel>

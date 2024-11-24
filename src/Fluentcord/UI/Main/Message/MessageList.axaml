@@ -6,6 +6,7 @@
              xmlns:chatMessages="clr-namespace:Fluentcord.UI.Main.Message"
              xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
              xmlns:converters="clr-namespace:Fluentcord.Converters"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Animated"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Message.MessageList"
              x:DataType="viewModels:MainViewModel"
@@ -20,6 +21,10 @@
     </Design.DataContext>
 
     <ScrollViewer x:Name="MessagesScrollViewer">
+        <Interaction.Behaviors>
+            <ia:VerticalScrollViewerAnimatedBehavior/>
+        </Interaction.Behaviors>
+        
         <ItemsControl
             ItemsSource="{Binding Messages}"
             Margin="0,0,50,0">
