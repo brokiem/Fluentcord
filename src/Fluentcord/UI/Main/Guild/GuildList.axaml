@@ -20,6 +20,7 @@
         </Interaction.Behaviors>
         
         <StackPanel>
+            <!-- Discord home button -->
             <ListBoxItem
                 BorderThickness="0"
                 Padding="0,3"
@@ -43,6 +44,7 @@
                 </Border>
             </ListBoxItem>
             
+            <!-- Separator -->
             <Path 
                 Margin="0,5,0,3"
                 HorizontalAlignment="Center"
@@ -51,6 +53,7 @@
                 StrokeThickness="2"
                 Data="M0 0 L0 0 L32 0 Z"/>
 
+            <!-- Guilds -->
             <ItemsControl
                 ItemsSource="{Binding Guilds}"
                 Padding="0,3">
