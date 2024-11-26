@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Fluentcord.Models.Messages.Attachment;
 using Fluentcord.Models.Messages.Embed;
@@ -16,7 +17,7 @@ public partial class MessageModel : ModelBase
     public ulong ChannelId { get; }
     public UserModel Author { get; }
 
-    [ObservableProperty] private string _content;
+    [ObservableProperty] private string? _content;
     [ObservableProperty] private bool _isEdited;
 
     public DateTimeOffset CreatedAt { get; }
@@ -26,9 +27,9 @@ public partial class MessageModel : ModelBase
 
     public bool MentionEveryone { get; set; }
 
-    public UserModel[] Mentions { get; set; }
-    public AttachmentModel[] Attachments { get; set; }
-    public EmbedModel[] Embeds { get; set; }
+    public AvaloniaList<UserModel> Mentions { get; set; }
+    public AvaloniaList<AttachmentModel> Attachments { get; set; }
+    public AvaloniaList<EmbedModel> Embeds { get; set; }
 
     public bool Pinned { get; set; }
     public ulong? WebhookId { get; }
@@ -43,14 +44,14 @@ public partial class MessageModel : ModelBase
         ulong messageId,
         ulong channelId,
         UserModel author,
-        string content = "",
+        string? content = null,
         bool isEdited = false,
         DateTimeOffset createdAt = default,
         DateTimeOffset? editedAt = null,
         bool mentionEveryone = false,
-        UserModel[] mentions = null!,
-        AttachmentModel[] attachments = null!,
-        EmbedModel[] embeds = null!,
+        AvaloniaList<UserModel>? mentions = null,
+        AvaloniaList<AttachmentModel>? attachments = null,
+        AvaloniaList<EmbedModel>? embeds = null,
         bool pinned = false,
         ulong? webhookId = null,
         MessageType messageType = default,
@@ -67,9 +68,9 @@ public partial class MessageModel : ModelBase
         CreatedAt = createdAt;
         EditedAt = editedAt;
         MentionEveryone = mentionEveryone;
-        Mentions = mentions;
-        Attachments = attachments;
-        Embeds = embeds;
+        Mentions = mentions ?? [];
+        Attachments = attachments ?? [];
+        Embeds = embeds ?? [];
         Pinned = pinned;
         WebhookId = webhookId;
         MessageType = messageType;
@@ -88,19 +89,15 @@ public partial class MessageModel : ModelBase
         CreatedAt = message.CreatedAt;
         EditedAt = message.EditedAt;
         MentionEveryone = message.MentionEveryone;
-        Mentions = message.MentionedUsers.Select(u => new UserModel(u)).ToArray();
-        Attachments = message.Attachments.Select(AttachmentModel.CreateAttachmentModel).ToArray();
-        Embeds = message.Embeds.Select(e => new EmbedModel(e)).ToArray();
+        Mentions = new AvaloniaList<UserModel>(message.MentionedUsers.Select(u => new UserModel(u)));
+        Attachments = new AvaloniaList<AttachmentModel>(message.Attachments.Select(AttachmentModel.CreateAttachmentModel));
+        Embeds = new AvaloniaList<EmbedModel>(message.Embeds.Select(e => new EmbedModel(e)));
         Pinned = message.IsPinned;
         WebhookId = message.WebhookId;
         MessageType = message.Type;
         ApplicationId = message.ApplicationId;
         Flags = message.Flags;
-
-        MessageReference = message.MessageReference != null
-            ? new MessageReferenceModel(message.MessageReference)
-            : null;
-
+        MessageReference = message.MessageReference != null ? new MessageReferenceModel(message.MessageReference) : null;
         IsEdited = message.EditedAt is not null;
         IsReply = message.Type == MessageType.Reply;
     }

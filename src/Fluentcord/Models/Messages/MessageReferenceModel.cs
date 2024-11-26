@@ -27,7 +27,7 @@ public class MessageReferenceModel : ModelBase
         AuthorAvatarUrl = message.Author.AvatarUrl;
         AuthorUsername = message.Author.Username;
         MessageContent = message.Content;
-        ContainAttachments = message.Attachments.Length > 0;
+        ContainAttachments = message.Attachments.Count > 0;
     }
 
     public MessageReferenceModel(MessageReference messageReference)
