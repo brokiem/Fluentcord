@@ -25,7 +25,7 @@
             <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
                 <main:ChatPanel Grid.Column="0" />
 
-                <members:MemberList Grid.Column="1" />
+                <members:MemberList Grid.Column="1" IsVisible="{Binding ShowMemberList}" />
             </Grid>
         </Grid>
     </Grid>
