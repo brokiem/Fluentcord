@@ -109,7 +109,14 @@ public partial class MainViewModel : ViewModelBase
                     Members.Add(new MemberUserModel
                     {
                         Name = _faker.Internet.UserName(),
-                        AvatarUrl = "https://cdn.discordapp.com/embed/avatars/4.png"
+                        AvatarUrl = "https://cdn.discordapp.com/embed/avatars/4.png",
+                        Status = _random.Next(0, 3) switch
+                        {
+                            0 => Status.Online,
+                            1 => Status.Idle,
+                            2 => Status.DoNotDisturb,
+                            _ => Status.Online
+                        },
                     });
                 }
             }

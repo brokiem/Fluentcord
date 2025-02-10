@@ -20,19 +20,32 @@
         <RelativePanel>
             <ListBoxItem Padding="3,1,7,4" MaxWidth="125">
                 <StackPanel Orientation="Horizontal">
-                    <Border
-                        CornerRadius="16"
-                        ClipToBounds="True"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        MaxWidth="32"
-                        MaxHeight="32"
-                        Margin="0,3,0,0">
-                        <Image
-                            Width="32"
-                            Height="32"
-                            asyncImageLoader:ImageLoader.Source="https://cdn.discordapp.com/embed/avatars/4.png" />
-                    </Border>
+                    <Grid>
+                        <Border
+                            CornerRadius="16"
+                            ClipToBounds="True"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            MaxWidth="32"
+                            MaxHeight="32"
+                            Margin="0,3,0,0">
+                            <Image
+                                Width="32"
+                                Height="32"
+                                asyncImageLoader:ImageLoader.Source="https://cdn.discordapp.com/embed/avatars/4.png" />
+                        </Border>
+                        <!-- Status Indicator -->
+                        <Border
+                            Width="15"
+                            Height="15"
+                            CornerRadius="5"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            BorderThickness="3"
+                            BorderBrush="#272727"
+                            Margin="0,0,-3,-3"
+                            Background="#22a75a" />
+                    </Grid>
 
                     <StackPanel
                         Margin="8,0,0,0"
