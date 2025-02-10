@@ -6,6 +6,9 @@
   </tr>
 </table>
 
+> [!NOTE]  
+> Only the UI has been implemented so far. The backend is still in development. But voice chat is working in my experimental branch.
+
 <br/>
 Fluentcord is an alternative Discord client for Windows, Linux, and Mac, designed with a focus on resource efficiency and performance.
 <br/><br/>
