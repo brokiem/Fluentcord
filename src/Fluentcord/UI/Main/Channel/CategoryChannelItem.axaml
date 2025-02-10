@@ -10,28 +10,28 @@
         <guildChannels:CategoryChannelModel />
     </Design.DataContext>
 
-    <StackPanel
-        Tapped="OnChannelClicked"
-        Margin="5,19,0,0"
-        Orientation="Horizontal"
-        VerticalAlignment="Center"
-        Spacing="6">
-        <Path
-            Data="{StaticResource ArrowDown}"
-            Width="8"
-            Height="8"
+    <ListBoxItem Padding="0" MinHeight="0" Margin="0,19,0,4" Tapped="OnChannelClicked">
+        <StackPanel
+            Orientation="Horizontal"
             VerticalAlignment="Center"
-            Stretch="Uniform"
-            Fill="{DynamicResource TextFillColorSecondaryBrush}" />
-
-        <TextBlock
-            Text="{Binding Name, Mode=OneWay}"
-            TextTrimming="CharacterEllipsis"
-            FontSize="11"
-            MaxWidth="145"
-            FontWeight="Medium"
-            VerticalAlignment="Center"
-            Margin="0,0,0,4"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-    </StackPanel>
+            Margin="5,0,0,0"
+            Spacing="6">
+            <Path
+                Data="{StaticResource ArrowDown}"
+                Width="8"
+                Height="8"
+                VerticalAlignment="Center"
+                Stretch="Uniform"
+                Margin="0,4,0,0"
+                Fill="{DynamicResource TextFillColorSecondaryBrush}" />
+            <TextBlock
+                Text="{Binding Name, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                FontSize="11"
+                MaxWidth="145"
+                FontWeight="Medium"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+    </ListBoxItem>
 </UserControl>

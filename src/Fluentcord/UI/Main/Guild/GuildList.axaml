@@ -15,9 +15,9 @@
 
     <ScrollViewer
         VerticalScrollBarVisibility="Hidden">
-        <Interaction.Behaviors>
-            <ia:VerticalScrollViewerAnimatedBehavior/>
-        </Interaction.Behaviors>
+        <!-- <Interaction.Behaviors> -->
+        <!--     <ia:VerticalScrollViewerAnimatedBehavior/> -->
+        <!-- </Interaction.Behaviors> -->
         
         <StackPanel>
             <!-- Discord home button -->

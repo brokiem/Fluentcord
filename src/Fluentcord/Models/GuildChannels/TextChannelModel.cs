@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Avalonia.Media;
 using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Fluentcord.Models.Permissions;
 using NetCord;
 
@@ -26,6 +27,14 @@ public class TextChannelModel : ChannelModel
 
     public ulong? LastMessageId { get; set; }
     public ulong? ParentId { get; set; }
+    public bool IsUnread { get; set; }
+
+    private bool _isHidden;
+    public sealed override bool IsHidden
+    {
+        get => _isHidden;
+        set { _isHidden = value; OnPropertyChanged(); }
+    }
 
     public TextChannelModel(
         ulong id,
@@ -37,7 +46,9 @@ public class TextChannelModel : ChannelModel
         bool isNsfw,
         string topic,
         ulong? lastMessageId,
-        ulong? parentId
+        ulong? parentId,
+        bool isUnread,
+        bool isHidden
     )
     {
         Id = id;
@@ -50,6 +61,8 @@ public class TextChannelModel : ChannelModel
         Topic = topic;
         LastMessageId = lastMessageId;
         ParentId = parentId;
+        IsUnread = isUnread;
+        IsHidden = isHidden;
     }
 
     public TextChannelModel(TextGuildChannel channel)
@@ -65,5 +78,7 @@ public class TextChannelModel : ChannelModel
         Topic = channel.Topic;
         LastMessageId = channel.LastMessageId;
         ParentId = channel.ParentId;
+        IsUnread = false;
+        IsHidden = false;
     }
 }

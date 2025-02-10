@@ -75,8 +75,12 @@ public partial class StartingViewModel : ViewModelBase
         _timer.Enabled = true;
         
         // TODO: Just for early phase using timer to navigate to main model instead of real loading
-        var navigationTimer = new Timer(3000);
-        navigationTimer.Elapsed += (_, _) => { navigationService.Navigate<MainViewModel>(); };
+        var navigationTimer = new Timer(2000);
+        navigationTimer.Elapsed += (_, _) =>
+        {
+            _timer.Stop();
+            navigationService.Navigate<MainViewModel>();
+        };
         navigationTimer.AutoReset = false;
         navigationTimer.Enabled = true;
     }

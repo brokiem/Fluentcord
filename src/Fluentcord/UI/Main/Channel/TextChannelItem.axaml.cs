@@ -2,7 +2,10 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using Fluentcord.Models.GuildChannels;
+using Fluentcord.Utils;
 using Fluentcord.ViewModels;
 
 namespace Fluentcord.UI.Main.Channel;
@@ -28,6 +31,11 @@ public partial class TextChannelItem : UserControl
                 mainViewModel.SelectedChannelListBoxItem = ChannelItemControl;
             }
         }
+
+        // TODO: Need to watch the IsUnread property
+        UnreadIndicatorIcon.Foreground = textChannelModel.IsUnread ? Brushes.White : Brushes.Transparent;
+        ChannelNameTextBlock.Foreground =
+            textChannelModel.IsUnread ? Brushes.White : ColorUtils.TextFillColorTertiaryBrush;
     }
 
     private void OnChannelClicked(object? sender, TappedEventArgs e)

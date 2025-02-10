@@ -16,9 +16,10 @@
         BorderThickness="0"
         Margin="6,0,7,0"
         HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left">
+        HorizontalContentAlignment="Left"
+        IsVisible="{Binding !IsHidden}">
         <StackPanel
-            Margin="13,4,0,0"
+            Margin="11,4,0,0"
             Orientation="Horizontal"
             VerticalAlignment="Center"
             Spacing="8">

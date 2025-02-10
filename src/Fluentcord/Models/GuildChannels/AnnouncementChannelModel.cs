@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Fluentcord.Models.Permissions;
 using NetCord;
 
@@ -23,6 +24,13 @@ public class AnnouncementChannelModel : ChannelModel
 
     public ulong? LastMessageId { get; set; }
     public ulong? ParentId { get; set; }
+    
+    private bool _isHidden;
+    public sealed override bool IsHidden
+    {
+        get => _isHidden;
+        set { _isHidden = value; OnPropertyChanged(); }
+    }
 
     public AnnouncementChannelModel(
         ulong id,
@@ -33,7 +41,8 @@ public class AnnouncementChannelModel : ChannelModel
         bool isNsfw,
         string topic,
         ulong? lastMessageId,
-        ulong? parentId
+        ulong? parentId,
+        bool isHidden
     )
     {
         Id = id;
@@ -45,6 +54,7 @@ public class AnnouncementChannelModel : ChannelModel
         Topic = topic;
         LastMessageId = lastMessageId;
         ParentId = parentId;
+        IsHidden = isHidden;
     }
 
     public AnnouncementChannelModel(AnnouncementGuildChannel channel)
@@ -59,5 +69,6 @@ public class AnnouncementChannelModel : ChannelModel
         Topic = channel.Topic;
         LastMessageId = channel.LastMessageId;
         ParentId = channel.ParentId;
+        IsHidden = false;
     }
 }

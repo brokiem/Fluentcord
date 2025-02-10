@@ -68,23 +68,23 @@ public partial class MainViewModel : ViewModelBase
         for (var j = 1; j <= _random.Next(15, 50); j++)
         {
             var categoryId = CreateId();
-            GuildChannels.Add(new CategoryChannelModel(categoryId, "Text Channels", [], j, guildId));
+            GuildChannels.Add(new CategoryChannelModel(categoryId, "Text Channels", [], j, guildId, false));
 
             for (var k = 1; k <= _random.Next(5, 15); k++)
             {
                 var channelId = CreateId();
                 GuildChannels.Add(new TextChannelModel(channelId, guildId, $"{channelId}", j + k, [], 0, false,
-                    "This is the channel topic", null, categoryId));
+                    "This is the channel topic", null, categoryId, k % 2 == 0, false));
             }
 
             var voiceId = CreateId();
             GuildChannels.Add(new VoiceChannelModel(voiceId, null, "Voice channel", -1, categoryId, null, null,
-                null, guildId, [], 0, false));
+                null, guildId, [], 0, false, false));
 
             // Voice channel member
             var memberId = CreateId();
-            GuildChannels.Add(new VoiceChannelMemberModel(voiceId, memberId, _faker.Internet.UserName(),
-                "https://cdn.discordapp.com/embed/avatars/4.png", true, true));
+            GuildChannels.Add(new VoiceChannelMemberModel(voiceId, memberId, categoryId, _faker.Internet.UserName(),
+                "https://cdn.discordapp.com/embed/avatars/4.png", true, true, false));
         }
     }
 
@@ -98,7 +98,7 @@ public partial class MainViewModel : ViewModelBase
             {
                 Members.Add(new MembersGroupModel
                 {
-                    Name = _faker.Company.CompanyName(),
+                    Name = _faker.Company.CompanyName().ToUpper(),
                     OnlineCount = 5
                 });
 
@@ -118,12 +118,12 @@ public partial class MainViewModel : ViewModelBase
     {
         Messages.Clear();
 
-        for (var l = 1; l <= _random.Next(10, 50); l++)
+        for (var l = 1; l <= _random.Next(40, 100); l++)
         {
             var messageId = CreateId();
             var authorId = CreateId();
             Messages.Add(new MessageModel(
-                messageId: messageId,
+                messageId: (ulong)l,
                 channelId: channelId,
                 author: new UserModel(
                     id: authorId,
@@ -143,7 +143,7 @@ public partial class MainViewModel : ViewModelBase
                     premiumType: null,
                     publicFlags: null
                 ),
-                content: _faker.Rant.Review("Discord"),
+                content: string.Join(" ", _faker.Rant.Reviews("Discord", _random.Next(1, 20))),
                 isEdited: false,
                 createdAt: DateTimeOffset.Now,
                 editedAt: null,
@@ -163,7 +163,7 @@ public partial class MainViewModel : ViewModelBase
                 applicationId: null,
                 flags: null,
                 messageReference: new MessageReferenceModel(new MessageModel(
-                    messageId: messageId,
+                    messageId: 5,
                     channelId: channelId,
                     author: new UserModel(
                         id: authorId,
@@ -240,7 +240,31 @@ public partial class MainViewModel : ViewModelBase
 
             SelectedChannel = channel;
         }
+        else if (channel is CategoryChannelModel categoryChannel)
+        {
+            categoryChannel.IsHidden = !categoryChannel.IsHidden;
 
-        // TODO: Handle other channel logic like category and voice
+            // Hide or show the channels in the category
+            foreach (var guildChannel in GuildChannels)
+            {
+                switch (guildChannel)
+                {
+                    case AnnouncementChannelModel announcementChannel when announcementChannel.ParentId == categoryChannel.Id:
+                        announcementChannel.IsHidden = categoryChannel.IsHidden;
+                        break;
+                    case TextChannelModel textChannel when textChannel.ParentId == categoryChannel.Id:
+                        textChannel.IsHidden = categoryChannel.IsHidden;
+                        break;
+                    case VoiceChannelModel voiceChannel when voiceChannel.ParentId == categoryChannel.Id:
+                        voiceChannel.IsHidden = categoryChannel.IsHidden;
+                        break;
+                    case VoiceChannelMemberModel voiceChannelMember when voiceChannelMember.ChannelParentId == categoryChannel.Id:
+                        voiceChannelMember.IsHidden = categoryChannel.IsHidden;
+                        break;
+                }
+            }
+        }
+
+        // TODO: Handle other channel logic like voice
     }
 }

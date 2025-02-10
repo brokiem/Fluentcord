@@ -20,9 +20,9 @@
     
     <ScrollViewer
         Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
-        <Interaction.Behaviors>
+        <!--<Interaction.Behaviors>
             <ia:VerticalScrollViewerAnimatedBehavior/>
-        </Interaction.Behaviors>
+        </Interaction.Behaviors>-->
         
         <ItemsControl
             ItemsSource="{Binding GuildChannels}">

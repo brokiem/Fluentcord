@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:Fluentcord.Models"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Guild.GuildItem"
              x:DataType="models:GuildModel"
@@ -13,28 +14,94 @@
         <models:GuildModel />
     </Design.DataContext>
 
-    <ListBoxItem x:Name="GuildItemControl">
-        <Border
-            Width="48"
-            Height="48"
-            CornerRadius="24"
-            ClipToBounds="True"
-            Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}">
-            <Panel>
-                <Image
-                    asyncImageLoader:ImageLoader.Source="{Binding IconUrl}"
-                    IsVisible="{Binding IconUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+    <RelativePanel>
+        <!-- Unread indicator -->
+        <controls:FontIcon
+            x:Name="UnreadIndicatorIcon"
+            RelativePanel.AlignVerticalCenterWithPanel="True"
+            Glyph="&#xE915;"
+            FontSize="18"
+            FontWeight="Bold"
+            Margin="-8,0,0,0"
+            VerticalAlignment="Center" />
+        <!-- Guild name tooltip -->
+        <ToolTip
+            Background="Transparent"
+            BorderThickness="0"
+            Margin="0"
+            Padding="0"
+            VerticalOffset="0"
+            HorizontalOffset="8"
+            ShowDelay="0"
+            Placement="Right">
+            <ToolTip.Tip>
+                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Medium" Opacity="0.9" />
+            </ToolTip.Tip>
+            <ListBoxItem x:Name="GuildItemControl">
+                <ListBoxItem.Styles>
+                    <Style Selector=":not(:disabled)">
+                        <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                            <Setter Property="Fill" Value="White" />
+                            <Setter Property="Width" Value="5" />
+                            <Setter Property="Height" Value="18" />
+                            <Setter Property="Margin" Value="0" />
+                        </Style>
+                    </Style>
+                    
+                    <Style Selector=":not(:selected)">
+                        <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="RenderTransform" Value="scaleY(0)" />
+                        </Style>
+                    </Style>
+                    <Style Selector=":pointerover">
+                        <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="RenderTransform" Value="scaleY(1)" />
+                        </Style>
+                    </Style>
+                    <Style Selector=":selected">
+                        <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                            <Setter Property="RenderTransform" Value="scaleY(1.8)" />
+                        </Style>
+                        
+                        <Style Selector="^:pointerover">
+                            <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                                <Setter Property="IsVisible" Value="True" />
+                                <Setter Property="RenderTransform" Value="scaleY(1.8)" />
+                            </Style>
+                        </Style>
+                    </Style>
+                    <Style Selector=":pressed">
+                        <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="RenderTransform" Value="scaleY(2.6)" />
+                        </Style>
+                    </Style>
+                </ListBoxItem.Styles>
+                <Border
+                    Width="48"
+                    Height="48"
+                    CornerRadius="24"
+                    ClipToBounds="True"
+                    Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}">
+                    <Panel>
+                        <Image
+                            asyncImageLoader:ImageLoader.Source="{Binding IconUrl}"
+                            IsVisible="{Binding IconUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
 
-                <TextBlock
-                    Text="{Binding Initials}"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Margin="0,0,0,5"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    IsVisible="{Binding IconUrl, Converter={x:Static StringConverters.IsNullOrEmpty}}"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center" />
-            </Panel>
-        </Border>
-    </ListBoxItem>
+                        <TextBlock
+                            Text="{Binding Initials}"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Margin="0,0,0,5"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsVisible="{Binding IconUrl, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+                    </Panel>
+                </Border>
+            </ListBoxItem>
+        </ToolTip>
+    </RelativePanel>
 </UserControl>

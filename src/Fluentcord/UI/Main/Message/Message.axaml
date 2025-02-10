@@ -6,9 +6,11 @@
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              xmlns:attachment="clr-namespace:Fluentcord.Models.Messages.Attachment"
              xmlns:converters="clr-namespace:Fluentcord.Converters"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Message.Message"
-             x:DataType="messages:MessageModel">
+             x:DataType="messages:MessageModel"
+             Loaded="Control_OnLoaded">
     <Design.DataContext>
         <messages:MessageModel />
     </Design.DataContext>
@@ -16,74 +18,122 @@
     <UserControl.Resources>
         <converters:MessageAttachmentModelToUiConverter x:Key="MessageAttachmentModelToUiConverter" />
     </UserControl.Resources>
-    
-    <Grid ColumnDefinitions="Auto,*">
-        <!-- Author Avatar -->
-        <Border
-            Grid.Column="0"
-            Width="40"
-            Height="40"
-            CornerRadius="20"
-            ClipToBounds="True"
-            VerticalAlignment="Top"
-            Margin="0,5,0,0">
-            <Image
-                asyncImageLoader:ImageLoader.Source="{Binding Author.AvatarUrl}" />
-        </Border>
-        <!-- Message Content -->
-        <StackPanel
-            Grid.Column="1"
-            Margin="15,2,10,0"
-            Spacing="4"
-            Orientation="Vertical">
-            <!-- Author Name and Timestamp -->
+
+    <Grid x:Name="MessageGrid" Background="Transparent">
+        <Grid ColumnDefinitions="Auto,*">
+            <!-- Author Avatar -->
+            <Border
+                Grid.Column="0"
+                Width="40"
+                Height="40"
+                CornerRadius="20"
+                ClipToBounds="True"
+                VerticalAlignment="Top"
+                Margin="0,5,0,0">
+                <Image
+                    asyncImageLoader:ImageLoader.Source="{Binding Author.AvatarUrl}" />
+            </Border>
+            <!-- Message Content -->
             <StackPanel
-                Orientation="Horizontal"
-                Spacing="9"
-                VerticalAlignment="Center">
-                <TextBlock
-                    FontSize="15"
-                    Text="{Binding Author.Username}"
-                    VerticalAlignment="Bottom" />
-                <TextBlock
-                    FontSize="11"
-                    Text="{Binding Timestamp}"
-                    VerticalAlignment="Bottom"
-                    Padding="0,0,0,1"
-                    Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                Grid.Column="1"
+                Margin="15,2,10,0"
+                Spacing="4"
+                Orientation="Vertical">
+                <!-- Author Name and Timestamp -->
+                <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="9"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="15"
+                        Text="{Binding Author.Username}"
+                        VerticalAlignment="Bottom" />
+                    <TextBlock
+                        FontSize="11"
+                        Text="{Binding Timestamp}"
+                        VerticalAlignment="Bottom"
+                        Padding="0,0,0,1"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+
+                <!-- Message Text -->
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="15"
+                        TextWrapping="Wrap"
+                        Text="{Binding Content}"
+                        VerticalAlignment="Center"
+                        Margin="0,0,3,0"
+                        IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                    <TextBlock
+                        FontSize="10"
+                        Text="(edited)"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        IsVisible="{Binding IsEdited}" />
+                </WrapPanel>
+
+                <!-- Message Attachments -->
+                <ItemsControl ItemsSource="{CompiledBinding Attachments}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="attachment:AttachmentModel">
+                            <ContentControl
+                                Content="{Binding Converter={StaticResource MessageAttachmentModelToUiConverter}}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
-
-            <!-- Message Text -->
-            <WrapPanel Orientation="Horizontal">
-                <TextBlock
-                    FontSize="15"
-                    TextWrapping="Wrap"
-                    Text="{Binding Content}"
-                    VerticalAlignment="Center"
-                    Margin="0,0,3,0"
-                    IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
-                <TextBlock
-                    FontSize="10"
-                    Text="(edited)"
-                    VerticalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                    IsVisible="{Binding IsEdited}" />
-            </WrapPanel>
-
-            <!-- Message Attachments -->
-            <ItemsControl ItemsSource="{CompiledBinding Attachments}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="attachment:AttachmentModel">
-                        <ContentControl
-                            Content="{Binding Converter={StaticResource MessageAttachmentModelToUiConverter}}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+        </Grid>
+        
+        <!-- Message Actions -->
+        <Border
+            x:Name="MessageActionsBorder"
+            IsVisible="False"
+            CornerRadius="7"
+            MaxHeight="32"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
+            <StackPanel 
+                Orientation="Horizontal">
+                <ListBoxItem MinHeight="32" MinWidth="32" Padding="0">
+                    <controls:FontIcon
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE76E;"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        VerticalAlignment="Center" />
+                </ListBoxItem>
+                <ListBoxItem MinHeight="32" MinWidth="32" Padding="0">
+                    <controls:FontIcon
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE97A;"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        VerticalAlignment="Center" />
+                </ListBoxItem>
+                <ListBoxItem MinHeight="32" MinWidth="32" Padding="0">
+                    <controls:FontIcon
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xEE35;"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        VerticalAlignment="Center" />
+                </ListBoxItem>
+                <ListBoxItem MinHeight="32" MinWidth="32" Padding="0">
+                    <controls:FontIcon
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE712;"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        VerticalAlignment="Center" />
+                </ListBoxItem>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

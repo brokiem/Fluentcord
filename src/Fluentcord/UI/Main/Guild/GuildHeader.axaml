@@ -3,25 +3,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Guild.GuildHeader"
              x:DataType="viewModels:MainViewModel">
     <Design.DataContext>
         <viewModels:MainViewModel />
     </Design.DataContext>
-    
+
     <Border
-        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-        CornerRadius="7,0,0,0"
         BorderBrush="{DynamicResource CardStrokeColorDefaultSolidBrush}"
-        BorderThickness="0,1,0,1"
-        Padding="0,14,10,14">
-        <TextBlock
-            Padding="15,0,10,0"
-            Text="{Binding SelectedGuild.Name, FallbackValue=''}"
-            Width="240"
-            VerticalAlignment="Top"
-            FontSize="15"
-            FontWeight="SemiBold" />
+        BorderThickness="0,1,0,1">
+        <DropDownButton
+            HorizontalAlignment="Stretch"
+            Padding="15,14,15,14"
+            CornerRadius="7,0,0,0"
+            BorderThickness="0"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+            <TextBlock
+                Text="{Binding SelectedGuild.Name, FallbackValue=''}"
+                Width="180"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                FontSize="15"
+                FontWeight="SemiBold" />
+        </DropDownButton>
     </Border>
 </UserControl>

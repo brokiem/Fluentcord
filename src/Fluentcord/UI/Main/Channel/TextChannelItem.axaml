@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:guildChannels="clr-namespace:Fluentcord.Models.GuildChannels"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Channel.TextChannelItem"
              x:DataType="guildChannels:TextChannelModel"
@@ -12,36 +13,61 @@
         <guildChannels:TextChannelModel />
     </Design.DataContext>
 
-    <ListBoxItem
-        x:Name="ChannelItemControl"
-        Tapped="OnChannelClicked"
-        MinHeight="36"
-        Padding="0"
-        BorderThickness="0"
-        Margin="6,0,7,0"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left">
-        <StackPanel
-            Margin="13,4,0,0"
-            Orientation="Horizontal"
+    <Grid ColumnDefinitions="Auto,*" IsVisible="{Binding !IsHidden}">
+        <!-- Unread indicator -->
+        <controls:FontIcon
+            x:Name="UnreadIndicatorIcon"
+            Grid.Column="0"
+            Glyph="&#xE915;"
+            FontSize="18"
+            FontWeight="Bold"
+            Margin="-9,0,0,0"
             VerticalAlignment="Center"
-            Spacing="8">
-            <Path
-                Data="{StaticResource Hashtag}"
-                Width="15"
-                Height="18"
+            Foreground="Transparent"/>
+        <ListBoxItem
+            Grid.Column="1"
+            x:Name="ChannelItemControl"
+            Tapped="OnChannelClicked"
+            MinHeight="0"
+            Height="36"
+            Padding="0"
+            BorderThickness="0"
+            Margin="-3,0,7,0"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left">
+            <ListBoxItem.Styles>
+                <Style Selector=":selected">
+                    <Style Selector="^ /template/ Rectangle#SelectionIndicator">
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style>
+                    
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="{DynamicResource ControlSolidFillColorDefaultBrush}" />
+                    </Style>
+                </Style>
+            </ListBoxItem.Styles>
+            <StackPanel
+                Margin="10,4,0,0"
+                Orientation="Horizontal"
                 VerticalAlignment="Center"
-                Stretch="Uniform"
-                Fill="{DynamicResource TextFillColorTertiaryBrush}" />
+                Spacing="8">
+                <Path
+                    Data="{StaticResource Hashtag}"
+                    Width="15"
+                    Height="18"
+                    VerticalAlignment="Center"
+                    Stretch="Uniform"
+                    Fill="{DynamicResource TextFillColorTertiaryBrush}" />
 
-            <TextBlock
-                Text="{Binding Name, Mode=OneWay}"
-                TextTrimming="CharacterEllipsis"
-                FontSize="15"
-                MaxWidth="145"
-                VerticalAlignment="Center"
-                Margin="0,0,0,4"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-        </StackPanel>
-    </ListBoxItem>
+                <TextBlock
+                    x:Name="ChannelNameTextBlock"
+                    Text="{Binding Name, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    FontSize="15"
+                    MaxWidth="160"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,4" />
+            </StackPanel>
+        </ListBoxItem>
+    </Grid>
 </UserControl>

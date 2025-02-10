@@ -20,6 +20,7 @@ public partial class CategoryChannelItem : UserControl
         var categoryChannelModel = (CategoryChannelModel)DataContext!;
         var mainViewModel = App.GetService<MainViewModel>();
         
+        // Hide the channels in the category
         mainViewModel.SelectChannel(categoryChannelModel);
     }
 }

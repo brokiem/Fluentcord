@@ -1,9 +1,16 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Threading;
+using Fluentcord.Models.Messages;
 using Fluentcord.ViewModels;
 
 namespace Fluentcord.UI.Main.Message;
@@ -31,11 +38,54 @@ public partial class MessageList : UserControl
     private void MessagesOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         // Check if ScrollViewer offset is at the bottom
-        if (MessagesScrollViewer.Offset.Y < MessagesScrollViewer.Extent.Height - MessagesScrollViewer.Viewport.Height - 10)
+        if (MessagesScrollViewer.Offset.Y <
+            MessagesScrollViewer.Extent.Height - MessagesScrollViewer.Viewport.Height - 10)
         {
             return;
         }
 
+        // TODO: Scroll until unread messages are visible
         Dispatcher.UIThread.Post(MessagesScrollViewer.ScrollToEnd);
+    }
+    
+    private void RepliedMessage_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var mainViewModel = (MainViewModel)DataContext!;
+        var listBoxItem = (ListBoxItem)sender!;
+        var messageModel = (MessageModel)listBoxItem.DataContext!;
+        var repliedMessageId = messageModel.MessageReference?.MessageId;
+
+        if (repliedMessageId == null)
+            return;
+
+        var index = mainViewModel.Messages.IndexOf(mainViewModel.Messages.FirstOrDefault(x => x.MessageId == repliedMessageId));
+        if (index == -1)
+            // TODO: Fetch the message from the server
+            return;
+
+        var element = (Border?)MessagesRepeater.GetOrCreateElement(index);
+        if (element != null)
+        {
+            HighlightElement(element);
+        }
+    }
+
+    private void HighlightElement(Border element)
+    {
+        element.UpdateLayout();
+        element.BringIntoView();
+
+        _ = Task.Run(async () =>
+        {
+            var colors = new[] { Colors.Orange, Colors.Transparent };
+            for (var i = 0; i < 2; i++)
+            {
+                foreach (var color in colors)
+                {
+                    Dispatcher.UIThread.Post(() => element.Background = new SolidColorBrush(color, 0.1));
+                    await Task.Delay(400);
+                }
+            }
+        });
     }
 }

@@ -17,7 +17,8 @@
         BorderThickness="0"
         Margin="40,0,7,0"
         HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Left">
+        HorizontalContentAlignment="Left"
+        IsVisible="{Binding !IsHidden}">
         <RelativePanel
             VerticalAlignment="Center"
             Margin="0,0,8,0">
@@ -59,14 +60,16 @@
                     Glyph="&#xF781;"
                     FontSize="14"
                     Margin="0,4,0,0"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                 <controls:FontIcon
                     x:Name="VoiceSpeakerIcon"
                     IsVisible="{Binding IsSelfDeafened}"
                     Glyph="&#xE74F;"
                     FontSize="18"
                     Margin="0,4,0,0"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </StackPanel>
         </RelativePanel>
     </ListBoxItem>

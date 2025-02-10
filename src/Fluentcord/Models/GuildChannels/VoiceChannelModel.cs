@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Avalonia.Media;
 using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Fluentcord.Models.Permissions;
 using NetCord;
 
@@ -20,6 +21,13 @@ public class VoiceChannelModel : ChannelModel
     public PermissionOverwriteModel[] PermissionOverwrites { get; set; } = [];
     public int Slowmode { get; set; }
     public bool IsNsfw { get; set; }
+    
+    private bool _isHidden;
+    public sealed override bool IsHidden
+    {
+        get => _isHidden;
+        set { _isHidden = value; OnPropertyChanged(); }
+    }
 
     public VoiceChannelModel(
         ulong id,
@@ -33,7 +41,8 @@ public class VoiceChannelModel : ChannelModel
         ulong guildId,
         PermissionOverwriteModel[] permissionOverwrites,
         int slowmode,
-        bool isNsfw
+        bool isNsfw,
+        bool isHidden
     )
     {
         Id = id;
@@ -48,6 +57,7 @@ public class VoiceChannelModel : ChannelModel
         PermissionOverwrites = permissionOverwrites;
         Slowmode = slowmode;
         IsNsfw = isNsfw;
+        IsHidden = isHidden;
     }
 
     public VoiceChannelModel(VoiceGuildChannel channel)
@@ -65,5 +75,6 @@ public class VoiceChannelModel : ChannelModel
             .ToArray();
         Slowmode = channel.Slowmode;
         IsNsfw = channel.Nsfw;
+        IsHidden = false;
     }
 }
