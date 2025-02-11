@@ -33,7 +33,6 @@ public partial class TextChannelItem : UserControl
         }
 
         // TODO: Need to watch the IsUnread property
-        UnreadIndicatorIcon.Foreground = textChannelModel.IsUnread ? Brushes.White : Brushes.Transparent;
         ChannelNameTextBlock.Foreground =
             textChannelModel.IsUnread ? Brushes.White : ColorUtils.TextFillColorTertiaryBrush;
     }

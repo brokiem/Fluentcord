@@ -23,7 +23,8 @@
             FontSize="18"
             FontWeight="Bold"
             Margin="-8,0,0,0"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center"
+            IsVisible="{Binding IsUnread}" />
         <!-- Guild name tooltip -->
         <ToolTip
             Background="Transparent"
@@ -47,7 +48,7 @@
                             <Setter Property="Margin" Value="0" />
                         </Style>
                     </Style>
-                    
+
                     <Style Selector=":not(:selected)">
                         <Style Selector="^ /template/ Rectangle#SelectionIndicator">
                             <Setter Property="IsVisible" Value="True" />
@@ -64,7 +65,7 @@
                         <Style Selector="^ /template/ Rectangle#SelectionIndicator">
                             <Setter Property="RenderTransform" Value="scaleY(1.8)" />
                         </Style>
-                        
+
                         <Style Selector="^:pointerover">
                             <Style Selector="^ /template/ Rectangle#SelectionIndicator">
                                 <Setter Property="IsVisible" Value="True" />

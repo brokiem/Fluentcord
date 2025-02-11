@@ -13,26 +13,24 @@
         <guildChannels:TextChannelModel />
     </Design.DataContext>
 
-    <Grid ColumnDefinitions="Auto,*" IsVisible="{Binding !IsHidden}">
+    <Grid IsVisible="{Binding !IsHidden}">
         <!-- Unread indicator -->
         <controls:FontIcon
-            x:Name="UnreadIndicatorIcon"
-            Grid.Column="0"
             Glyph="&#xE915;"
             FontSize="18"
             FontWeight="Bold"
             Margin="-9,0,0,0"
             VerticalAlignment="Center"
-            Foreground="Transparent"/>
+            HorizontalAlignment="Left"
+            IsVisible="{Binding IsUnread}"/>
         <ListBoxItem
-            Grid.Column="1"
             x:Name="ChannelItemControl"
             Tapped="OnChannelClicked"
             MinHeight="0"
             Height="36"
             Padding="0"
             BorderThickness="0"
-            Margin="-3,0,7,0"
+            Margin="7,0,7,0"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Left">
             <ListBoxItem.Styles>

@@ -58,7 +58,7 @@ public partial class MainViewModel : ViewModelBase
                 Guilds.Add(new GuildModel(guildId, $"The guild({i})",
                     _random.Next(-2, 3) > 0
                         ? $"https://cdn.discordapp.com/embed/avatars/{_random.Next(1, 5)}.png"
-                        : null));
+                        : null, false));
             }
         });
     }
