@@ -46,7 +46,8 @@
                         Margin="5,0,5,0"
                         VerticalAlignment="Bottom"
                         Watermark="{CompiledBinding SelectedChannel.Name, StringFormat='Message #{0}', FallbackValue=''}"
-                        TextWrapping="Wrap">
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True">
                         <TextBox.Styles>
                             <Style Selector="TextBox">
                                 <Setter Property="VerticalContentAlignment" Value="Center" />
