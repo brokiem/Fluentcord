@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -63,18 +64,17 @@ public partial class MessageList : UserControl
             // TODO: Fetch the message from the server
             return;
 
-        var element = (Border?)MessagesRepeater.GetOrCreateElement(index);
+        MessagesRepeater.ScrollIntoView(index);
+        
+        var element = (ContentPresenter?)MessagesRepeater.ContainerFromIndex(index);
         if (element != null)
         {
             HighlightElement(element);
         }
     }
 
-    private void HighlightElement(Border element)
+    private void HighlightElement(ContentPresenter element)
     {
-        element.UpdateLayout();
-        element.BringIntoView();
-
         _ = Task.Run(async () =>
         {
             var colors = new[] { Colors.Orange, Colors.Transparent };

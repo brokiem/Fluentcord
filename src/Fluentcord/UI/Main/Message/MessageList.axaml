@@ -26,10 +26,15 @@
         <!--     <ia:VerticalScrollViewerAnimatedBehavior /> -->
         <!-- </Interaction.Behaviors> -->
 
-        <controls:ItemsRepeater
+        <ItemsControl
             x:Name="MessagesRepeater"
             ItemsSource="{Binding Messages}">
-            <controls:ItemsRepeater.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="messages:MessageModel">
                     <Border CornerRadius="7" ClipToBounds="True">
                         <StackPanel
@@ -40,13 +45,13 @@
                                 <ContentControl
                                     Content="{Binding Converter={StaticResource MessageModelToRepliedMessageConverter}}" />
                             </ListBoxItem>
-                            
+
                             <!-- The message itself -->
                             <chatMessages:Message />
                         </StackPanel>
                     </Border>
                 </DataTemplate>
-            </controls:ItemsRepeater.ItemTemplate>
-        </controls:ItemsRepeater>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </ScrollViewer>
 </UserControl>
