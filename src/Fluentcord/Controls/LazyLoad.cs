@@ -20,14 +20,9 @@ public class LazyLoad : Control {
     [Content] [TemplateContent] public required object DeferredContent { get; set; }
 
     public Control? Control => _control;
-
-    private IDisposable? _subscription;
-
-    public LazyLoad() {
-        _subscription = LoadProperty.Changed.AddClassHandler<LazyLoad>((c, e) => {
-            c._subscription?.Dispose();
-            c._subscription = null;
-
+    
+    static LazyLoad() {
+        LoadProperty.Changed.AddClassHandler<LazyLoad>((c, e) => {
             if (e.NewValue is true) {
                 c.DoLoad();
             }
