@@ -28,6 +28,9 @@ public partial class MainViewModel : ViewModelBase {
     [ObservableProperty] private ListBoxItem? _selectedChannelListBoxItem;
 
     [ObservableProperty] private bool _showMemberList = true;
+    
+    [ObservableProperty] private MessageModel? _selectedReplyMessage;
+    [ObservableProperty] private bool _mentionReply = true;
 
     private readonly Random _random = new();
     private readonly IdGenerator _idGenerator = new(0);

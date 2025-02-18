@@ -18,72 +18,120 @@
         <!-- Message list -->
         <message:MessageList Grid.Row="0" />
 
-        <!-- Message Input -->
-        <Panel Grid.Row="1">
+        <!-- Message Input area -->
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Vertical"
+            Margin="16,0,16,25">
+            <!-- Replying indicator -->
             <Border
-                MinHeight="44"
+                x:Name="ReplyingIndicator"
+                IsVisible="{Binding SelectedReplyMessage, Converter={x:Static ObjectConverters.IsNotNull}}"
                 CornerRadius="7"
-                Margin="15,0,15,25"
-                Background="{DynamicResource ControlStrokeColorSecondaryBrush}">
-                <Grid
-                    ColumnDefinitions="Auto,*,Auto"
-                    Margin="15,0,15,0">
-                    <ListBoxItem Grid.Column="0" Padding="0" MinHeight="0" MinWidth="0">
-                        <controls:FontIcon
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Glyph="&#xECC8;"
-                            FontSize="23"
-                            FontWeight="Medium"
-                            VerticalAlignment="Center" />
-                    </ListBoxItem>
-
-                    <TextBox
+                Height="34"
+                Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock
+                        Grid.Column="0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        VerticalAlignment="Center"
+                        Margin="14,0,0,2"
+                        Text="{Binding SelectedReplyMessage.Author.Username, StringFormat='Replying to {0}', FallbackValue='Replying to unknown'}"/>
+                    <StackPanel
                         Grid.Column="1"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        MinHeight="44"
-                        MaxHeight="400"
-                        Margin="5,0,5,0"
-                        VerticalAlignment="Bottom"
-                        Watermark="{CompiledBinding SelectedChannel.Name, StringFormat='Message #{0}', FallbackValue=''}"
-                        TextWrapping="Wrap"
-                        AcceptsReturn="True">
-                        <TextBox.Styles>
-                            <Style Selector="TextBox">
-                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                                <Setter Property="FontSize" Value="15" />
-                                <Style Selector="^:not(:disabled)">
-                                    <Style Selector="^ /template/ TextBlock#PART_Watermark">
-                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
-                                        <Setter Property="Opacity" Value="0.8" />
-                                    </Style>
-                                </Style>
-                                <Style Selector="^:pointerover">
-                                    <Style Selector="^ /template/ Border#PART_BorderElement">
-                                        <Setter Property="Background" Value="Transparent" />
-                                        <Setter Property="BorderThickness" Value="0" />
-                                    </Style>
-                                </Style>
-                                <Style Selector="^:focus">
-                                    <Style Selector="^ /template/ Border#PART_BorderElement">
-                                        <Setter Property="Background" Value="Transparent" />
-                                        <Setter Property="BorderThickness" Value="0" />
-                                    </Style>
-                                </Style>
-                            </Style>
-                        </TextBox.Styles>
-                    </TextBox>
-
-                    <ListBoxItem Grid.Column="2" Padding="0" MinHeight="0" MinWidth="0">
-                        <controls:FontIcon
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Glyph="&#xE76E;"
-                            FontSize="23"
-                            FontWeight="Medium"
-                            VerticalAlignment="Center" />
-                    </ListBoxItem>
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <ToggleButton
+                            IsChecked="{Binding MentionReply}"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Padding="6,4,6,4"
+                            Margin="0,0,10,0">
+                            <ToggleButton.Content>
+                                <controls:FontIcon Glyph="&#xE910;" FontSize="16" />
+                            </ToggleButton.Content>
+                        </ToggleButton>
+                        <Separator />
+                        <ListBoxItem
+                            Tapped="CloseReplyingButton_OnTapped"
+                            VerticalAlignment="Center"
+                            MinHeight="34"
+                            MinWidth="50"
+                            Margin="0"
+                            Padding="0">
+                            <ListBoxItem.Content>
+                                <controls:FontIcon Glyph="&#xEA39;" FontSize="16" />
+                            </ListBoxItem.Content>
+                        </ListBoxItem>
+                    </StackPanel>
                 </Grid>
             </Border>
-        </Panel>
+            <!-- Message Input -->
+            <Panel>
+                <Border
+                    MinHeight="44"
+                    CornerRadius="7"
+                    Background="{DynamicResource ControlStrokeColorSecondaryBrush}">
+                    <Grid
+                        ColumnDefinitions="Auto,*,Auto"
+                        Margin="15,0,15,0">
+                        <ListBoxItem Grid.Column="0" Padding="0" MinHeight="0" MinWidth="0">
+                            <controls:FontIcon
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Glyph="&#xECC8;"
+                                FontSize="23"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center" />
+                        </ListBoxItem>
+
+                        <TextBox
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            MinHeight="44"
+                            MaxHeight="400"
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Bottom"
+                            Watermark="{Binding SelectedChannel.Name, StringFormat='Message #{0}', FallbackValue=''}"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True">
+                            <TextBox.Styles>
+                                <Style Selector="TextBox">
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="FontSize" Value="15" />
+                                    <Style Selector="^:not(:disabled)">
+                                        <Style Selector="^ /template/ TextBlock#PART_Watermark">
+                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+                                            <Setter Property="Opacity" Value="0.8" />
+                                        </Style>
+                                    </Style>
+                                    <Style Selector="^:pointerover">
+                                        <Style Selector="^ /template/ Border#PART_BorderElement">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                        </Style>
+                                    </Style>
+                                    <Style Selector="^:focus">
+                                        <Style Selector="^ /template/ Border#PART_BorderElement">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                        </Style>
+                                    </Style>
+                                </Style>
+                            </TextBox.Styles>
+                        </TextBox>
+
+                        <ListBoxItem Grid.Column="2" Padding="0" MinHeight="0" MinWidth="0">
+                            <controls:FontIcon
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Glyph="&#xE76E;"
+                                FontSize="23"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center" />
+                        </ListBoxItem>
+                    </Grid>
+                </Border>
+            </Panel>
+        </StackPanel>
     </Grid>
 </UserControl>

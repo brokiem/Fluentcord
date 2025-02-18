@@ -76,7 +76,7 @@
 
                 <!-- Message Attachments -->
                 <controls1:LazyLoad Load="{Binding HasAttachment}">
-                    <ItemsControl ItemsSource="{CompiledBinding Attachments}">
+                    <ItemsControl ItemsSource="{Binding Attachments}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
@@ -112,7 +112,7 @@
                         FontWeight="Medium"
                         VerticalAlignment="Center" />
                 </ListBoxItem>
-                <ListBoxItem MinHeight="32" MinWidth="32" Padding="0">
+                <ListBoxItem MinHeight="32" MinWidth="32" Padding="0" Tapped="ReplyButton_OnTapped">
                     <controls:FontIcon
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Glyph="&#xE97A;"
