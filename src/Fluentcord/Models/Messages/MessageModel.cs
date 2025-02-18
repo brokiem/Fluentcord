@@ -31,6 +31,7 @@ public partial class MessageModel : ModelBase
     public AvaloniaList<AttachmentModel> Attachments { get; set; }
     public AvaloniaList<EmbedModel> Embeds { get; set; }
 
+    public bool HasAttachment { get; set; }
     public bool Pinned { get; set; }
     public ulong? WebhookId { get; }
     public MessageType MessageType { get; }
@@ -71,6 +72,7 @@ public partial class MessageModel : ModelBase
         Mentions = mentions ?? [];
         Attachments = attachments ?? [];
         Embeds = embeds ?? [];
+        HasAttachment = Attachments.Count > 0;
         Pinned = pinned;
         WebhookId = webhookId;
         MessageType = messageType;
@@ -92,6 +94,7 @@ public partial class MessageModel : ModelBase
         Mentions = new AvaloniaList<UserModel>(message.MentionedUsers.Select(u => new UserModel(u)));
         Attachments = new AvaloniaList<AttachmentModel>(message.Attachments.Select(AttachmentModel.CreateAttachmentModel));
         Embeds = new AvaloniaList<EmbedModel>(message.Embeds.Select(e => new EmbedModel(e)));
+        HasAttachment = Attachments.Count > 0;
         Pinned = message.IsPinned;
         WebhookId = message.WebhookId;
         MessageType = message.Type;

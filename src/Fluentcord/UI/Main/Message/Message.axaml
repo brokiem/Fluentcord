@@ -7,6 +7,7 @@
              xmlns:attachment="clr-namespace:Fluentcord.Models.Messages.Attachment"
              xmlns:converters="clr-namespace:Fluentcord.Converters"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:controls1="clr-namespace:Fluentcord.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Message.Message"
              x:DataType="messages:MessageModel"
@@ -74,22 +75,24 @@
                 </WrapPanel>
 
                 <!-- Message Attachments -->
-                <ItemsControl ItemsSource="{CompiledBinding Attachments}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="attachment:AttachmentModel">
-                            <ContentControl
-                                Content="{Binding Converter={StaticResource MessageAttachmentModelToUiConverter}}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <controls1:LazyLoad Load="{Binding HasAttachment}">
+                    <ItemsControl ItemsSource="{CompiledBinding Attachments}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="attachment:AttachmentModel">
+                                <ContentControl
+                                    Content="{Binding Converter={StaticResource MessageAttachmentModelToUiConverter}}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </controls1:LazyLoad>
             </StackPanel>
         </Grid>
-        
+
         <!-- Message Actions -->
         <Border
             x:Name="MessageActionsBorder"
@@ -99,7 +102,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
-            <StackPanel 
+            <StackPanel
                 Orientation="Horizontal">
                 <ListBoxItem MinHeight="32" MinWidth="32" Padding="0">
                     <controls:FontIcon

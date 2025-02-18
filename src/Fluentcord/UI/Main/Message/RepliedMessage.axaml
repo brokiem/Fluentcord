@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:messages="clr-namespace:Fluentcord.Models.Messages"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:controls="clr-namespace:Fluentcord.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Message.RepliedMessage"
              x:DataType="messages:MessageModel"
@@ -11,7 +12,7 @@
     <Design.DataContext>
         <messages:MessageModel />
     </Design.DataContext>
-    
+
     <StackPanel
         Orientation="Horizontal"
         Spacing="4"
@@ -49,12 +50,13 @@
             VerticalAlignment="Center"
             TextWrapping="NoWrap"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-        <!-- Attachment indicator -->
-        <PathIcon
-            Margin="0,0,0,6"
-            Data="{StaticResource ImageRegular}"
-            Width="15" Height="15"
-            IsVisible="{Binding MessageReference.ContainAttachments}"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <controls:LazyLoad Load="{Binding MessageReference.ContainAttachments}">
+            <!-- Attachment indicator -->
+            <PathIcon
+                Margin="0,0,0,6"
+                Data="{StaticResource ImageRegular}"
+                Width="15" Height="15"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        </controls:LazyLoad>
     </StackPanel>
 </UserControl>
