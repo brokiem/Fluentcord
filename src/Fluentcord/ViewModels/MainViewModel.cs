@@ -209,6 +209,8 @@ public partial class MainViewModel : ViewModelBase {
         if (newValue is null) {
             return;
         }
+        
+        SelectedReplyMessage = null;
 
         var channel = newValue;
 
