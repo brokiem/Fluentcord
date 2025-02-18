@@ -15,8 +15,7 @@ using NetCord;
 
 namespace Fluentcord.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
-{
+public partial class MainViewModel : ViewModelBase {
     [ObservableProperty] private AvaloniaList<GuildModel> _guilds = [];
     [ObservableProperty] private AvaloniaList<ChannelModel> _guildChannels = [];
     [ObservableProperty] private AvaloniaList<MessageModel> _messages = [];
@@ -27,33 +26,26 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty] private ListBoxItem? _selectedGuildListBoxItem;
     [ObservableProperty] private ListBoxItem? _selectedChannelListBoxItem;
-    
+
     [ObservableProperty] private bool _showMemberList = true;
 
     private readonly Random _random = new();
     private readonly IdGenerator _idGenerator = new(0);
     private readonly Faker _faker = new();
 
-    public MainViewModel()
-    {
+    public MainViewModel() {
         LoadMockData();
     }
 
-    private ulong CreateId()
-    {
-        return (ulong)_idGenerator.CreateId();
-    }
+    private ulong CreateId() => (ulong)_idGenerator.CreateId();
 
-    private void LoadMockData()
-    {
-        Dispatcher.UIThread.Post(() =>
-        {
+    private void LoadMockData() {
+        Dispatcher.UIThread.Post(() => {
             Guilds.Clear();
             GuildChannels.Clear();
             Messages.Clear();
 
-            for (var i = 1; i <= _random.Next(30, 100); i++)
-            {
+            for (var i = 1; i <= _random.Next(30, 100); i++) {
                 var guildId = CreateId();
                 Guilds.Add(new GuildModel(guildId, $"The guild({i})",
                     _random.Next(-2, 3) > 0
@@ -63,17 +55,14 @@ public partial class MainViewModel : ViewModelBase
         });
     }
 
-    private void LoadChannels(ulong guildId)
-    {
+    private void LoadChannels(ulong guildId) {
         GuildChannels.Clear();
 
-        for (var j = 1; j <= _random.Next(15, 50); j++)
-        {
+        for (var j = 1; j <= _random.Next(15, 50); j++) {
             var categoryId = CreateId();
             GuildChannels.Add(new CategoryChannelModel(categoryId, "Text Channels", [], j, guildId, false));
 
-            for (var k = 1; k <= _random.Next(5, 15); k++)
-            {
+            for (var k = 1; k <= _random.Next(5, 15); k++) {
                 var channelId = CreateId();
                 GuildChannels.Add(new TextChannelModel(channelId, guildId, $"{channelId}", j + k, [], 0, false,
                     "This is the channel topic", null, categoryId, k % 2 == 0, false));
@@ -90,32 +79,25 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    private void LoadMembers(ulong channelId)
-    {
+    private void LoadMembers(ulong channelId) {
         Members.Clear();
 
-        Dispatcher.UIThread.Post(() =>
-        {
-            for (ulong i = 1; i <= 10; i++)
-            {
-                Members.Add(new MembersGroupModel
-                {
+        Dispatcher.UIThread.Post(() => {
+            for (ulong i = 1; i <= 10; i++) {
+                Members.Add(new MembersGroupModel {
                     Name = _faker.Company.CompanyName().ToUpper(),
-                    OnlineCount = 5
+                    OnlineCount = 5,
                 });
 
-                for (int j = 0; j < 5; j++)
-                {
-                    Members.Add(new MemberUserModel
-                    {
+                for (var j = 0; j < 5; j++) {
+                    Members.Add(new MemberUserModel {
                         Name = _faker.Internet.UserName(),
                         AvatarUrl = "https://cdn.discordapp.com/embed/avatars/4.png",
-                        Status = _random.Next(0, 3) switch
-                        {
+                        Status = _random.Next(0, 3) switch {
                             0 => Status.Online,
                             1 => Status.Idle,
                             2 => Status.DoNotDisturb,
-                            _ => Status.Online
+                            _ => Status.Online,
                         },
                     });
                 }
@@ -123,21 +105,19 @@ public partial class MainViewModel : ViewModelBase
         }, DispatcherPriority.Background);
     }
 
-    private void LoadMessages(ulong channelId)
-    {
+    private void LoadMessages(ulong channelId) {
         Messages.Clear();
 
-        for (var l = 1; l <= _random.Next(40, 100); l++)
-        {
+        for (var l = 1; l <= _random.Next(40, 100); l++) {
             var messageId = CreateId();
             var authorId = CreateId();
             Messages.Add(new MessageModel(
-                messageId: (ulong)l,
-                channelId: channelId,
-                author: new UserModel(
-                    id: authorId,
-                    username: $"{_faker.Name.FirstName()} {_faker.Name.LastName()}",
-                    discriminator: 0,
+                (ulong)l,
+                channelId,
+                new UserModel(
+                    authorId,
+                    $"{_faker.Name.FirstName()} {_faker.Name.LastName()}",
+                    0,
                     globalName: null,
                     avatarUrl: $"https://cdn.discordapp.com/embed/avatars/{_random.Next(1, 5)}.png",
                     isBot: false,
@@ -152,32 +132,31 @@ public partial class MainViewModel : ViewModelBase
                     premiumType: null,
                     publicFlags: null
                 ),
-                content: string.Join(" ", _faker.Rant.Reviews("Discord", _random.Next(1, 20))),
-                isEdited: false,
-                createdAt: DateTimeOffset.Now,
-                editedAt: null,
-                mentionEveryone: false,
-                mentions: [],
-                attachments:
+                string.Join(" ", _faker.Rant.Reviews("Discord", _random.Next(1, 20))),
+                false,
+                DateTimeOffset.Now,
+                null,
+                false,
+                [],
                 [
                     new ImageAttachmentModel(1, "Attachment name", null, "image/png", 500,
                         "https://picsum.photos/536/354",
                         "https://picsum.photos/536/354",
-                        false, null, 354, 536)
+                        false, null, 354, 536),
                 ],
-                embeds: [],
-                pinned: false,
-                webhookId: null,
-                messageType: MessageType.Default,
-                applicationId: null,
-                flags: null,
-                messageReference: new MessageReferenceModel(new MessageModel(
-                    messageId: 5,
-                    channelId: channelId,
-                    author: new UserModel(
-                        id: authorId,
-                        username: $"{_faker.Name.FirstName()} {_faker.Name.LastName()}",
-                        discriminator: 0,
+                [],
+                false,
+                null,
+                MessageType.Default,
+                null,
+                null,
+                new MessageReferenceModel(new MessageModel(
+                    5,
+                    channelId,
+                    new UserModel(
+                        authorId,
+                        $"{_faker.Name.FirstName()} {_faker.Name.LastName()}",
+                        0,
                         globalName: null,
                         avatarUrl: $"https://cdn.discordapp.com/embed/avatars/{_random.Next(1, 5)}.png",
                         isBot: false,
@@ -192,39 +171,41 @@ public partial class MainViewModel : ViewModelBase
                         premiumType: null,
                         publicFlags: null
                     ),
-                    content: _faker.Rant.Review("Discord"),
-                    isEdited: false,
-                    createdAt: DateTimeOffset.Now,
-                    editedAt: null,
-                    mentionEveryone: false,
-                    mentions: [],
-                    attachments: [],
-                    embeds: [],
-                    pinned: false,
-                    webhookId: null,
-                    messageType: MessageType.Default,
-                    applicationId: null,
-                    flags: null,
-                    messageReference: null,
-                    isReply: false
+                    _faker.Rant.Review("Discord"),
+                    false,
+                    DateTimeOffset.Now,
+                    null,
+                    false,
+                    [],
+                    [],
+                    [],
+                    false,
+                    null,
+                    MessageType.Default,
+                    null,
+                    null,
+                    null,
+                    false
                 )),
-                isReply: true
+                true
             ));
         }
     }
 
-    partial void OnSelectedGuildChanged(GuildModel? oldValue, GuildModel? newValue)
-    {
-        if (newValue is null) return;
+    partial void OnSelectedGuildChanged(GuildModel? oldValue, GuildModel? newValue) {
+        if (newValue is null) {
+            return;
+        }
 
         var guild = newValue;
 
         LoadChannels(guild.Id);
     }
 
-    partial void OnSelectedChannelChanged(ChannelModel? oldValue, ChannelModel? newValue)
-    {
-        if (newValue is null) return;
+    partial void OnSelectedChannelChanged(ChannelModel? oldValue, ChannelModel? newValue) {
+        if (newValue is null) {
+            return;
+        }
 
         var channel = newValue;
 
@@ -232,45 +213,54 @@ public partial class MainViewModel : ViewModelBase
         LoadMessages(channel.Id);
     }
 
-    public void SelectGuild(GuildModel? guild)
-    {
-        if (guild is null) return;
-        if (SelectedGuild?.Id == guild.Id) return;
+    public void SelectGuild(GuildModel? guild) {
+        if (guild is null) {
+            return;
+        }
+
+        if (SelectedGuild?.Id == guild.Id) {
+            return;
+        }
 
         SelectedGuild = guild;
     }
 
-    public void SelectChannel(ChannelModel? channel)
-    {
-        // Handle text channel
-        if (channel is TextChannelModel)
+    public void SelectChannel(ChannelModel? channel) {
+        switch (channel)
         {
-            if (SelectedChannel?.Id == channel.Id) return;
-
-            SelectedChannel = channel;
-        }
-        else if (channel is CategoryChannelModel categoryChannel)
-        {
-            categoryChannel.IsHidden = !categoryChannel.IsHidden;
-
-            // Hide or show the channels in the category
-            foreach (var guildChannel in GuildChannels)
+            // Handle text channel
+            case TextChannelModel:
             {
-                switch (guildChannel)
-                {
-                    case AnnouncementChannelModel announcementChannel when announcementChannel.ParentId == categoryChannel.Id:
-                        announcementChannel.IsHidden = categoryChannel.IsHidden;
-                        break;
-                    case TextChannelModel textChannel when textChannel.ParentId == categoryChannel.Id:
-                        textChannel.IsHidden = categoryChannel.IsHidden;
-                        break;
-                    case VoiceChannelModel voiceChannel when voiceChannel.ParentId == categoryChannel.Id:
-                        voiceChannel.IsHidden = categoryChannel.IsHidden;
-                        break;
-                    case VoiceChannelMemberModel voiceChannelMember when voiceChannelMember.ChannelParentId == categoryChannel.Id:
-                        voiceChannelMember.IsHidden = categoryChannel.IsHidden;
-                        break;
+                if (SelectedChannel?.Id == channel.Id) {
+                    return;
                 }
+
+                SelectedChannel = channel;
+                break;
+            }
+            case CategoryChannelModel categoryChannel:
+            {
+                categoryChannel.IsHidden = !categoryChannel.IsHidden;
+
+                // Hide or show the channels in the category
+                foreach (var guildChannel in GuildChannels) {
+                    switch (guildChannel) {
+                        case AnnouncementChannelModel announcementChannel when announcementChannel.ParentId == categoryChannel.Id:
+                            announcementChannel.IsHidden = categoryChannel.IsHidden;
+                            break;
+                        case TextChannelModel textChannel when textChannel.ParentId == categoryChannel.Id:
+                            textChannel.IsHidden = categoryChannel.IsHidden;
+                            break;
+                        case VoiceChannelModel voiceChannel when voiceChannel.ParentId == categoryChannel.Id:
+                            voiceChannel.IsHidden = categoryChannel.IsHidden;
+                            break;
+                        case VoiceChannelMemberModel voiceChannelMember when voiceChannelMember.ChannelParentId == categoryChannel.Id:
+                            voiceChannelMember.IsHidden = categoryChannel.IsHidden;
+                            break;
+                    }
+                }
+
+                break;
             }
         }
 
