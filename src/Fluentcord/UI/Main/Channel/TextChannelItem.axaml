@@ -22,7 +22,7 @@
             Margin="-9,0,0,0"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            IsVisible="{Binding IsUnread}"/>
+            IsVisible="{Binding IsUnread}" />
         <ListBoxItem
             x:Name="ChannelItemControl"
             Tapped="OnChannelClicked"
@@ -38,7 +38,7 @@
                     <Style Selector="^ /template/ Rectangle#SelectionIndicator">
                         <Setter Property="IsVisible" Value="False" />
                     </Style>
-                    
+
                     <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
                         <Setter Property="Background" Value="{DynamicResource ControlSolidFillColorDefaultBrush}" />
                     </Style>

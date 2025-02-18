@@ -5,7 +5,6 @@
              xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
              xmlns:members="clr-namespace:Fluentcord.Models.Members"
              xmlns:converters="clr-namespace:Fluentcord.Converters"
-             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Members.MemberList"
              x:DataType="viewModels:MainViewModel">
@@ -27,7 +26,7 @@
             <!-- <Interaction.Behaviors> -->
             <!--     <ia:VerticalScrollViewerAnimatedBehavior/> -->
             <!-- </Interaction.Behaviors> -->
-            
+
             <ItemsControl
                 ItemsSource="{Binding Members}">
                 <ItemsControl.ItemsPanel>

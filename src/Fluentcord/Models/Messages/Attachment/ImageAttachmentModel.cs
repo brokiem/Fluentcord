@@ -3,8 +3,7 @@ using NetCord;
 
 namespace Fluentcord.Models.Messages.Attachment;
 
-public sealed class ImageAttachmentModel : AttachmentModel
-{
+public sealed class ImageAttachmentModel : AttachmentModel {
     public override ulong Id { get; }
     public override string FileName { get; }
     public override string? Description { get; }
@@ -18,8 +17,7 @@ public sealed class ImageAttachmentModel : AttachmentModel
     public int Height { get; }
     public int Width { get; }
 
-    public ImageAttachmentModel(
-        ulong id,
+    public ImageAttachmentModel(ulong id,
         string fileName,
         string? description,
         string? contentType,
@@ -29,8 +27,8 @@ public sealed class ImageAttachmentModel : AttachmentModel
         bool ephemeral,
         AttachmentFlags? flags,
         int height,
-        int width)
-    {
+        int width
+    ) {
         Id = id;
         FileName = fileName;
         Description = description;
@@ -45,8 +43,7 @@ public sealed class ImageAttachmentModel : AttachmentModel
         Url = ImageUtils.FormatImageUrl(url, Width, Height);
     }
 
-    public ImageAttachmentModel(ImageAttachment imageAttachment)
-    {
+    public ImageAttachmentModel(ImageAttachment imageAttachment) {
         Id = imageAttachment.Id;
         FileName = imageAttachment.FileName;
         Description = imageAttachment.Description;
@@ -55,7 +52,7 @@ public sealed class ImageAttachmentModel : AttachmentModel
         ProxyUrl = imageAttachment.ProxyUrl;
         Ephemeral = imageAttachment.Ephemeral;
         Flags = imageAttachment.Flags;
-        
+
         Width = ImageUtils.FormatWidth(imageAttachment.Width, imageAttachment.Height);
         Height = ImageUtils.FormatHeight(imageAttachment.Width, imageAttachment.Height);
         Url = ImageUtils.FormatImageUrl(imageAttachment.Url, Width, Height);

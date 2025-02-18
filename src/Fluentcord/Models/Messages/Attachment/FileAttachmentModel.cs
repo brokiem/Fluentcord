@@ -2,8 +2,7 @@
 
 namespace Fluentcord.Models.Messages.Attachment;
 
-public class FileAttachmentModel(NetCord.Attachment attachment) : AttachmentModel
-{
+public class FileAttachmentModel(NetCord.Attachment attachment) : AttachmentModel {
     public override ulong Id { get; } = attachment.Id;
     public override string FileName { get; } = attachment.FileName;
     public override string? Description { get; } = attachment.Description;

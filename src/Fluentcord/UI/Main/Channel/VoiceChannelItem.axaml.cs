@@ -10,15 +10,12 @@ using Fluentcord.ViewModels;
 
 namespace Fluentcord.UI.Main.Channel;
 
-public partial class VoiceChannelItem : UserControl
-{
-    public VoiceChannelItem()
-    {
+public partial class VoiceChannelItem : UserControl {
+    public VoiceChannelItem() {
         InitializeComponent();
     }
 
-    private void OnChannelClicked(object? sender, TappedEventArgs e)
-    {
+    private void OnChannelClicked(object? sender, TappedEventArgs e) {
         var voiceChannelModel = (VoiceChannelModel)DataContext!;
         var mainViewModel = App.GetService<MainViewModel>();
 

@@ -7,26 +7,21 @@ using Fluentcord.Helpers;
 
 namespace Fluentcord.Windows;
 
-public partial class MainWindow : Window
-{
-    public MainWindow()
-    {
+public partial class MainWindow : Window {
+    public MainWindow() {
         InitializeComponent();
 
         // Run only on Windows
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
             // Fix the hidden taskbar cannot be triggered when the window is maximized.
             var hwnd = TryGetPlatformHandle()?.Handle;
-            if (hwnd != null)
-            {
+            if (hwnd != null) {
                 RuntimeHelper.SetPropW(hwnd.Value, "NonRudeHWND", new IntPtr(1));
             }
         }
     }
 
-    private void TopLevel_OnOpened(object? sender, EventArgs e)
-    {
+    private void TopLevel_OnOpened(object? sender, EventArgs e) {
         WindowState = WindowState.Maximized;
     }
 }

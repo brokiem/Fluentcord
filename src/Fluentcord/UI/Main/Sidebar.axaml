@@ -24,7 +24,7 @@
             <!-- Guild header -->
             <guilds:GuildHeader Grid.Row="0" />
             <!-- Channel list -->
-            <channels:ChannelList Grid.Row="1"  />
+            <channels:ChannelList Grid.Row="1" />
             <!-- User area panel -->
             <main:UserAreaPanel Grid.Row="2" />
         </Grid>

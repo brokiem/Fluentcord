@@ -4,10 +4,8 @@ using Avalonia.Markup.Xaml;
 
 namespace Fluentcord.Views;
 
-public partial class MainView : UserControl
-{
-    public MainView()
-    {
+public partial class MainView : UserControl {
+    public MainView() {
         InitializeComponent();
     }
 }

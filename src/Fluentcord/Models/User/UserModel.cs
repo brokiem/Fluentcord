@@ -3,8 +3,7 @@ using NetCord;
 
 namespace Fluentcord.Models.User;
 
-public class UserModel : ModelBase
-{
+public class UserModel : ModelBase {
     public ulong Id { get; set; }
     public string Username { get; set; }
     public ushort Discriminator { get; set; }
@@ -22,8 +21,7 @@ public class UserModel : ModelBase
     public PremiumType? PremiumType { get; set; }
     public UserFlags? PublicFlags { get; set; }
 
-    public UserModel(
-        ulong id,
+    public UserModel(ulong id,
         string username,
         ushort discriminator,
         string avatarUrl,
@@ -38,8 +36,8 @@ public class UserModel : ModelBase
         string? email = null,
         UserFlags? flags = null,
         PremiumType? premiumType = null,
-        UserFlags? publicFlags = null)
-    {
+        UserFlags? publicFlags = null
+    ) {
         Id = id;
         Username = username;
         Discriminator = discriminator;
@@ -58,8 +56,7 @@ public class UserModel : ModelBase
         PublicFlags = publicFlags;
     }
 
-    public UserModel(NetCord.User user)
-    {
+    public UserModel(NetCord.User user) {
         Id = user.Id;
         Username = user.Username;
         Discriminator = user.Discriminator;

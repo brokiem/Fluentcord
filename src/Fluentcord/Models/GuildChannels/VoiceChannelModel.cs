@@ -7,8 +7,7 @@ using NetCord;
 
 namespace Fluentcord.Models.GuildChannels;
 
-public class VoiceChannelModel : ChannelModel
-{
+public class VoiceChannelModel : ChannelModel {
     public sealed override ulong Id { get; }
     public ulong? LastMessageId { get; set; }
     public sealed override string? Name { get; set; }
@@ -21,16 +20,18 @@ public class VoiceChannelModel : ChannelModel
     public PermissionOverwriteModel[] PermissionOverwrites { get; set; } = [];
     public int Slowmode { get; set; }
     public bool IsNsfw { get; set; }
-    
+
     private bool _isHidden;
-    public sealed override bool IsHidden
-    {
+
+    public sealed override bool IsHidden {
         get => _isHidden;
-        set { _isHidden = value; OnPropertyChanged(); }
+        set {
+            _isHidden = value;
+            OnPropertyChanged();
+        }
     }
 
-    public VoiceChannelModel(
-        ulong id,
+    public VoiceChannelModel(ulong id,
         ulong? lastMessageId,
         string name,
         int position,
@@ -43,8 +44,7 @@ public class VoiceChannelModel : ChannelModel
         int slowmode,
         bool isNsfw,
         bool isHidden
-    )
-    {
+    ) {
         Id = id;
         LastMessageId = lastMessageId;
         Name = name;
@@ -60,8 +60,7 @@ public class VoiceChannelModel : ChannelModel
         IsHidden = isHidden;
     }
 
-    public VoiceChannelModel(VoiceGuildChannel channel)
-    {
+    public VoiceChannelModel(VoiceGuildChannel channel) {
         Id = channel.Id;
         LastMessageId = channel.LastMessageId;
         Name = channel.Name;

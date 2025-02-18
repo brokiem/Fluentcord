@@ -4,10 +4,8 @@ using Avalonia.Markup.Xaml;
 
 namespace Fluentcord.UI.Main;
 
-public partial class Sidebar : UserControl
-{
-    public Sidebar()
-    {
+public partial class Sidebar : UserControl {
+    public Sidebar() {
         InitializeComponent();
     }
 }

@@ -7,30 +7,30 @@ using NetCord;
 
 namespace Fluentcord.Models.GuildChannels;
 
-public class CategoryChannelModel : ChannelModel
-{
+public class CategoryChannelModel : ChannelModel {
     public sealed override ulong Id { get; }
     public sealed override string? Name { get; set; }
     public PermissionOverwriteModel[] PermissionOverwrites { get; set; }
     public int? Position { get; set; }
     public ulong GuildId { get; set; }
-    
+
     private bool _isHidden;
-    public sealed override bool IsHidden
-    {
+
+    public sealed override bool IsHidden {
         get => _isHidden;
-        set { _isHidden = value; OnPropertyChanged(); }
+        set {
+            _isHidden = value;
+            OnPropertyChanged();
+        }
     }
 
-    public CategoryChannelModel(
-        ulong id,
+    public CategoryChannelModel(ulong id,
         string name,
         PermissionOverwriteModel[] permissionOverwrites,
         int position,
         ulong guildId,
         bool isHidden
-    )
-    {
+    ) {
         Id = id;
         Name = name.ToUpper();
         PermissionOverwrites = permissionOverwrites;
@@ -39,8 +39,7 @@ public class CategoryChannelModel : ChannelModel
         IsHidden = isHidden;
     }
 
-    public CategoryChannelModel(CategoryGuildChannel channel)
-    {
+    public CategoryChannelModel(CategoryGuildChannel channel) {
         Id = channel.Id;
         GuildId = channel.GuildId;
         Name = channel.Name.ToUpper();

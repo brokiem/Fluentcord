@@ -99,7 +99,7 @@
                         <controls1:LazyLoad Load="{Binding IconUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                             <Image asyncImageLoader:ImageLoader.Source="{Binding IconUrl}" />
                         </controls1:LazyLoad>
-                        
+
                         <TextBlock
                             Text="{Binding Initials}"
                             FontSize="18"

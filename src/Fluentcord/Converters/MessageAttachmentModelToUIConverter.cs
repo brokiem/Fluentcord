@@ -7,29 +7,25 @@ using Fluentcord.UI.Main.Message.Attachment;
 
 namespace Fluentcord.Converters;
 
-public class MessageAttachmentModelToUiConverter : IValueConverter
-{
-    public object? Convert(object? model, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (model is null)
+public class MessageAttachmentModelToUiConverter : IValueConverter {
+    public object? Convert(object? model, Type targetType, object? parameter, CultureInfo culture) {
+        if (model is null) {
             return new TextBlock { Text = "UI not found for model: null" };
-        
-        UserControl? control = model switch
-        {
+        }
+
+        UserControl? control = model switch {
             FileAttachmentModel => new FileAttachment(),
             ImageAttachmentModel => new ImageAttachment(),
-            _ => null
+            _ => null,
         };
 
-        if (control is null)
+        if (control is null) {
             return new TextBlock { Text = $"UI not found for model: {model.GetType().Name}" };
+        }
 
         control.DataContext = model;
         return control;
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
 }

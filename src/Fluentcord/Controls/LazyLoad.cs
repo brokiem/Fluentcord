@@ -7,45 +7,38 @@ using Avalonia.Metadata;
 
 namespace Fluentcord.Controls;
 
-public class LazyLoad : Control
-{
+public class LazyLoad : Control {
     private Control? _control;
 
     public static readonly StyledProperty<bool> LoadProperty = AvaloniaProperty.Register<LazyLoad, bool>("Load");
 
-    public bool Load
-    {
+    public bool Load {
         get => GetValue(LoadProperty);
         set => SetValue(LoadProperty, value);
     }
 
-    [Content, TemplateContent] 
-    public required object DeferredContent { get; set; }
+    [Content] [TemplateContent] public required object DeferredContent { get; set; }
 
     public Control? Control => _control;
 
     private IDisposable? _subscription;
 
-    public LazyLoad()
-    {
-        _subscription = LoadProperty.Changed.AddClassHandler<LazyLoad>((c, e) =>
-        {
+    public LazyLoad() {
+        _subscription = LoadProperty.Changed.AddClassHandler<LazyLoad>((c, e) => {
             c._subscription?.Dispose();
             c._subscription = null;
 
-            if (e.NewValue is true)
+            if (e.NewValue is true) {
                 c.DoLoad();
+            }
         });
     }
 
-    protected override Size MeasureOverride(Size availableSize)
-        => LayoutHelper.MeasureChild(_control, availableSize, default);
+    protected override Size MeasureOverride(Size availableSize) => LayoutHelper.MeasureChild(_control, availableSize, default);
 
-    protected override Size ArrangeOverride(Size finalSize)
-        => LayoutHelper.ArrangeChild(_control, finalSize, default);
+    protected override Size ArrangeOverride(Size finalSize) => LayoutHelper.ArrangeChild(_control, finalSize, default);
 
-    private void DoLoad()
-    {
+    private void DoLoad() {
         _control = TemplateContent.Load(DeferredContent)!.Result;
         ((ISetLogicalParent)_control).SetParent(this);
         VisualChildren.Add(_control);

@@ -11,8 +11,7 @@ using NetCord.Gateway;
 
 namespace Fluentcord.Models.Messages;
 
-public partial class MessageModel : ModelBase
-{
+public partial class MessageModel : ModelBase {
     public ulong MessageId { get; }
     public ulong ChannelId { get; }
     public UserModel Author { get; }
@@ -41,8 +40,7 @@ public partial class MessageModel : ModelBase
 
     public bool IsReply { get; }
 
-    public MessageModel(
-        ulong messageId,
+    public MessageModel(ulong messageId,
         ulong channelId,
         UserModel author,
         string? content = null,
@@ -59,8 +57,8 @@ public partial class MessageModel : ModelBase
         ulong? applicationId = null,
         MessageFlags? flags = null,
         MessageReferenceModel? messageReference = null,
-        bool isReply = false)
-    {
+        bool isReply = false
+    ) {
         MessageId = messageId;
         ChannelId = channelId;
         Author = author;
@@ -82,8 +80,7 @@ public partial class MessageModel : ModelBase
         IsReply = isReply;
     }
 
-    public MessageModel(Message message)
-    {
+    public MessageModel(Message message) {
         MessageId = message.Id;
         ChannelId = message.ChannelId;
         Author = new UserModel(message.Author);

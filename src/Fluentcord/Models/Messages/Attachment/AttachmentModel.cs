@@ -3,8 +3,7 @@ using NetCord;
 
 namespace Fluentcord.Models.Messages.Attachment;
 
-public abstract class AttachmentModel : ModelBase
-{
+public abstract class AttachmentModel : ModelBase {
     public abstract ulong Id { get; }
     public abstract string FileName { get; }
 
@@ -17,14 +16,12 @@ public abstract class AttachmentModel : ModelBase
 
     public abstract bool Ephemeral { get; }
     public abstract AttachmentFlags? Flags { get; }
-    
-    public static AttachmentModel CreateAttachmentModel(NetCord.Attachment attachment)
-    {
-        return attachment switch
-        {
+
+    public static AttachmentModel CreateAttachmentModel(NetCord.Attachment attachment) {
+        return attachment switch {
             ImageAttachment imageAttachment => new ImageAttachmentModel(imageAttachment),
             VoiceAttachment voiceAttachment => new VoiceAttachmentModel(voiceAttachment),
-            _ => new FileAttachmentModel(attachment)
+            _ => new FileAttachmentModel(attachment),
         };
     }
 }

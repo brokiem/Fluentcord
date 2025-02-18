@@ -21,11 +21,11 @@ public class DiscordClientService : IDiscordClientService, IDisposable {
         await _client!.StartAsync().ConfigureAwait(false);
         await Task.Delay(-1).ConfigureAwait(false);
     }
-    
-    public GatewayClient GetClient()
-    {
-        if (_client == null)
+
+    public GatewayClient GetClient() {
+        if (_client == null) {
             throw new NullReferenceException("Client is not initialized");
+        }
 
         return _client;
     }

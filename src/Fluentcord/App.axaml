@@ -12,7 +12,7 @@
     <Application.Styles>
         <sty:FluentAvaloniaTheme />
         <StyleInclude Source="avares://Fluentcord/Icons.axaml" />
-        
+
         <Style>
             <Style.Resources>
                 <FontFamily x:Key="SegoeFluentIconsFont">/Assets/Fonts/SegoeFluentIcons.ttf#Segoe Fluent Icons</FontFamily>
@@ -22,12 +22,12 @@
                 <Setter Property="FontFamily" Value="{StaticResource SegoeFluentIconsFont}" />
             </Style>
         </Style>
-        
+
         <!-- Make the scrollbar right aligned -->
         <Style Selector="ScrollViewer ScrollBar">
             <Setter Property="Margin" Value="0,0,-2,0" />
         </Style>
-        
+
         <Style Selector="CaptionButtons">
             <Setter Property="MaxHeight" Value="20" />
         </Style>

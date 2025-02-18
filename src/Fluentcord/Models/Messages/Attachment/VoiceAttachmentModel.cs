@@ -3,8 +3,7 @@ using NetCord;
 
 namespace Fluentcord.Models.Messages.Attachment;
 
-public sealed class VoiceAttachmentModel : AttachmentModel
-{
+public sealed class VoiceAttachmentModel : AttachmentModel {
     public override ulong Id { get; }
     public override string FileName { get; }
     public override string? Description { get; }
@@ -18,8 +17,7 @@ public sealed class VoiceAttachmentModel : AttachmentModel
     public double DurationSecs { get; }
     public IReadOnlyList<byte> Waveform { get; }
 
-    public VoiceAttachmentModel(
-        ulong id,
+    public VoiceAttachmentModel(ulong id,
         string fileName,
         string? description,
         string? contentType,
@@ -29,8 +27,8 @@ public sealed class VoiceAttachmentModel : AttachmentModel
         bool ephemeral,
         AttachmentFlags? flags,
         double durationSecs,
-        IReadOnlyList<byte> waveform)
-    {
+        IReadOnlyList<byte> waveform
+    ) {
         Id = id;
         FileName = fileName;
         Description = description;
@@ -44,8 +42,7 @@ public sealed class VoiceAttachmentModel : AttachmentModel
         Waveform = waveform;
     }
 
-    public VoiceAttachmentModel(VoiceAttachment voiceAttachment)
-    {
+    public VoiceAttachmentModel(VoiceAttachment voiceAttachment) {
         Id = voiceAttachment.Id;
         FileName = voiceAttachment.FileName;
         Description = voiceAttachment.Description;

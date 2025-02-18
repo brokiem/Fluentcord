@@ -5,7 +5,6 @@
              xmlns:models="clr-namespace:Fluentcord.Models"
              xmlns:viewModels="clr-namespace:Fluentcord.ViewModels"
              xmlns:guild="clr-namespace:Fluentcord.UI.Main.Guild"
-             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Animated;assembly=Avalonia.Xaml.Interactions.Animated"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Fluentcord.UI.Main.Guild.GuildList"
              x:DataType="viewModels:MainViewModel">
@@ -18,7 +17,7 @@
         <!-- <Interaction.Behaviors> -->
         <!--     <ia:VerticalScrollViewerAnimatedBehavior/> -->
         <!-- </Interaction.Behaviors> -->
-        
+
         <StackPanel>
             <!-- Discord home button -->
             <ListBoxItem
@@ -43,15 +42,15 @@
                     </Panel>
                 </Border>
             </ListBoxItem>
-            
+
             <!-- Separator -->
-            <Path 
+            <Path
                 Margin="0,5,0,3"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Stroke="{DynamicResource ControlStrongStrokeColorDisabledBrush}"
                 StrokeThickness="2"
-                Data="M0 0 L0 0 L32 0 Z"/>
+                Data="M0 0 L0 0 L32 0 Z" />
 
             <!-- Guilds -->
             <ItemsControl

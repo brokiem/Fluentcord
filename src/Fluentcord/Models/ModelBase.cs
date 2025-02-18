@@ -2,6 +2,4 @@
 
 namespace Fluentcord.Models;
 
-public class ModelBase : ObservableObject
-{
-}
+public class ModelBase : ObservableObject { }

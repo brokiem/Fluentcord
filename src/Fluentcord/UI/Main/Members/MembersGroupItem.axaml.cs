@@ -4,10 +4,8 @@ using Avalonia.Markup.Xaml;
 
 namespace Fluentcord.UI.Main.Members;
 
-public partial class MembersGroupItem : UserControl
-{
-    public MembersGroupItem()
-    {
+public partial class MembersGroupItem : UserControl {
+    public MembersGroupItem() {
         InitializeComponent();
     }
 }

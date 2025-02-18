@@ -5,8 +5,7 @@ using NetCord;
 
 namespace Fluentcord.Models.GuildChannels;
 
-public class AnnouncementChannelModel : ChannelModel
-{
+public class AnnouncementChannelModel : ChannelModel {
     public sealed override ulong Id { get; }
     public ulong GuildId { get; set; }
     public sealed override string? Name { get; set; }
@@ -16,24 +15,25 @@ public class AnnouncementChannelModel : ChannelModel
 
     private string? _topic;
 
-    public string? Topic
-    {
+    public string? Topic {
         get => _topic;
         set => _topic = (value ?? string.Empty).ReplaceLineEndings(" ");
     }
 
     public ulong? LastMessageId { get; set; }
     public ulong? ParentId { get; set; }
-    
+
     private bool _isHidden;
-    public sealed override bool IsHidden
-    {
+
+    public sealed override bool IsHidden {
         get => _isHidden;
-        set { _isHidden = value; OnPropertyChanged(); }
+        set {
+            _isHidden = value;
+            OnPropertyChanged();
+        }
     }
 
-    public AnnouncementChannelModel(
-        ulong id,
+    public AnnouncementChannelModel(ulong id,
         ulong guildId,
         string name,
         int? position,
@@ -43,8 +43,7 @@ public class AnnouncementChannelModel : ChannelModel
         ulong? lastMessageId,
         ulong? parentId,
         bool isHidden
-    )
-    {
+    ) {
         Id = id;
         GuildId = guildId;
         Name = name;
@@ -57,8 +56,7 @@ public class AnnouncementChannelModel : ChannelModel
         IsHidden = isHidden;
     }
 
-    public AnnouncementChannelModel(AnnouncementGuildChannel channel)
-    {
+    public AnnouncementChannelModel(AnnouncementGuildChannel channel) {
         Id = channel.Id;
         GuildId = channel.GuildId;
         Name = channel.Name;

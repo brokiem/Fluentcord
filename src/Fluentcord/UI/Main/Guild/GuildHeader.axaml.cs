@@ -2,10 +2,8 @@
 
 namespace Fluentcord.UI.Main.Guild;
 
-public partial class GuildHeader : UserControl
-{
-    public GuildHeader()
-    {
+public partial class GuildHeader : UserControl {
+    public GuildHeader() {
         InitializeComponent();
     }
 }

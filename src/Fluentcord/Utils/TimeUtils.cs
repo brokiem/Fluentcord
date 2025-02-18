@@ -2,8 +2,7 @@
 
 namespace Fluentcord.Utils;
 
-public class TimeUtils
-{
+public class TimeUtils {
     /// <summary>
     /// Formats the given DateTime into a human-readable string.
     /// </summary>

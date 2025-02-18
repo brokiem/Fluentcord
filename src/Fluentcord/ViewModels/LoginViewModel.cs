@@ -5,8 +5,7 @@ using Fluentcord.Services;
 
 namespace Fluentcord.ViewModels;
 
-public partial class LoginViewModel : ViewModelBase
-{
+public partial class LoginViewModel : ViewModelBase {
     // ReSharper disable once InconsistentNaming
     private readonly INavigationService NavigationService;
     public ICommand LoginCommand { get; }
@@ -15,16 +14,14 @@ public partial class LoginViewModel : ViewModelBase
     // Default constructor for designer
     public LoginViewModel() { }
 
-    public LoginViewModel(INavigationService navigationService)
-    {
+    public LoginViewModel(INavigationService navigationService) {
         NavigationService = navigationService;
         LoginCommand = new RelayCommand(Login);
     }
 
-    private void Login()
-    {
+    private void Login() {
         NavigationService.Navigate<StartingViewModel>();
-        
+
         // TODO: Implement discord client service and login
     }
 }

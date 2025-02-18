@@ -4,19 +4,16 @@ using Fluentcord.ViewModels;
 
 namespace Fluentcord.Services;
 
-public interface INavigationService
-{
+public interface INavigationService {
     ViewModelBase CurrentView { get; }
     void Navigate<T>() where T : ViewModelBase;
 }
 
 public partial class NavigationService(Func<Type, ViewModelBase> viewModelFactory)
-    : ObservableObject, INavigationService
-{
+    : ObservableObject, INavigationService {
     [ObservableProperty] private ViewModelBase? _currentView;
 
-    public void Navigate<TViewModel>() where TViewModel : ViewModelBase
-    {
+    public void Navigate<TViewModel>() where TViewModel : ViewModelBase {
         var viewModel = viewModelFactory.Invoke(typeof(TViewModel));
         CurrentView = viewModel;
     }

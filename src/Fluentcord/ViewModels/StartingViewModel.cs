@@ -5,12 +5,10 @@ using Fluentcord.Services;
 
 namespace Fluentcord.ViewModels;
 
-public partial class StartingViewModel : ViewModelBase
-{
+public partial class StartingViewModel : ViewModelBase {
     private readonly Timer _timer;
 
-    private readonly string[] _loadingMessages =
-    [
+    private readonly string[] _loadingMessages = [
         "Warming up the servers... Shouldn't be long now",
         "Warming up the client... Shouldn't be long now",
         "Good vibes are on the way... Just a few more seconds",
@@ -56,28 +54,24 @@ public partial class StartingViewModel : ViewModelBase
         "Loading... because quality takes time...",
         "We’re on it! Just a few more seconds...",
         "Fine-tuning your experience...",
-        "Loading... making sure everything’s just right..."
+        "Loading... making sure everything’s just right...",
     ];
 
     [ObservableProperty] private string? _loadingMessage;
 
-    public StartingViewModel()
-    {
-    }
+    public StartingViewModel() { }
 
-    public StartingViewModel(INavigationService navigationService)
-    {
+    public StartingViewModel(INavigationService navigationService) {
         LoadingMessage = GetRandomLoadingMessage();
 
         _timer = new Timer(1000);
         _timer.Elapsed += (_, _) => { LoadingMessage = GetRandomLoadingMessage(); };
         _timer.AutoReset = true;
         _timer.Enabled = true;
-        
+
         // TODO: Just for early phase using timer to navigate to main model instead of real loading
         var navigationTimer = new Timer(2000);
-        navigationTimer.Elapsed += (_, _) =>
-        {
+        navigationTimer.Elapsed += (_, _) => {
             _timer.Stop();
             navigationService.Navigate<MainViewModel>();
         };
@@ -85,8 +79,7 @@ public partial class StartingViewModel : ViewModelBase
         navigationTimer.Enabled = true;
     }
 
-    private string GetRandomLoadingMessage()
-    {
+    private string GetRandomLoadingMessage() {
         var random = new Random();
         return _loadingMessages[random.Next(_loadingMessages.Length)];
     }

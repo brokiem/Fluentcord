@@ -21,7 +21,7 @@
             FontWeight="Medium"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         <TextBlock
-            Grid.Column="1" 
+            Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Text="—"

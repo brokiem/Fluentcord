@@ -2,8 +2,7 @@
 
 namespace Fluentcord.Utils;
 
-public class ImageUtils
-{
+public class ImageUtils {
     private const string DiscordCdnUrl = "cdn.discordapp.com";
     private const string DiscordMediaUrl = "media.discordapp.net";
     private const int MaxImageWidth = 550; //884;
@@ -17,8 +16,7 @@ public class ImageUtils
     /// <param name="maxWidth">The maximum allowed width of the image. If null, the default maximum width is used.</param>
     /// <param name="maxHeight">The maximum allowed height of the image. If null, the default maximum height is used.</param>
     /// <returns>A tuple containing the formatted width and height of the image.</returns>
-    private static (int, int) FormatDimensions(int width, int height, int? maxWidth = null, int? maxHeight = null)
-    {
+    private static (int, int) FormatDimensions(int width, int height, int? maxWidth = null, int? maxHeight = null) {
         var maxWidthOrDefault = maxWidth ?? MaxImageWidth;
         var maxHeightOrDefault = maxHeight ?? MaxImageHeight;
 
@@ -40,8 +38,7 @@ public class ImageUtils
     /// <param name="maxWidth">The maximum allowed width of the image. If null, the default maximum width is used.</param>
     /// <param name="maxHeight">The maximum allowed height of the image. If null, the default maximum height is used.</param>
     /// <returns>The formatted width of the image.</returns>
-    public static int FormatWidth(int width, int height, int? maxWidth = null, int? maxHeight = null)
-    {
+    public static int FormatWidth(int width, int height, int? maxWidth = null, int? maxHeight = null) {
         var (formattedWidth, _) = FormatDimensions(width, height, maxWidth, maxHeight);
         return formattedWidth;
     }
@@ -54,8 +51,7 @@ public class ImageUtils
     /// <param name="maxWidth">The maximum allowed width of the image. If null, the default maximum width is used.</param>
     /// <param name="maxHeight">The maximum allowed height of the image. If null, the default maximum height is used.</param>
     /// <returns>The formatted height of the image.</returns>
-    public static int FormatHeight(int width, int height, int? maxWidth = null, int? maxHeight = null)
-    {
+    public static int FormatHeight(int width, int height, int? maxWidth = null, int? maxHeight = null) {
         var (_, formattedHeight) = FormatDimensions(width, height, maxWidth, maxHeight);
         return formattedHeight;
     }
@@ -69,16 +65,12 @@ public class ImageUtils
     /// <param name="maxWidth">The maximum allowed width of the image. If null, the default maximum width is used.</param>
     /// <param name="maxHeight">The maximum allowed height of the image. If null, the default maximum height is used.</param>
     /// <returns>A string representing the formatted URL of the image.</returns>
-    public static string FormatImageUrl(string url, int width, int height, int? maxWidth = null, int? maxHeight = null)
-    {
+    public static string FormatImageUrl(string url, int width, int height, int? maxWidth = null, int? maxHeight = null) {
         var formattedWidth = FormatWidth(width, height, maxWidth, maxHeight);
         var formattedHeight = FormatHeight(width, height, maxWidth, maxHeight);
 
         return $"{url.Replace(DiscordCdnUrl, DiscordMediaUrl)}?width={formattedWidth}&height={formattedHeight}";
     }
 
-    public static string FormatCdnUrl(string url, int size)
-    {
-        return url.StartsWith(DiscordCdnUrl) ? $"{url}?size={size}" : url;
-    }
+    public static string FormatCdnUrl(string url, int size) => url.StartsWith(DiscordCdnUrl) ? $"{url}?size={size}" : url;
 }

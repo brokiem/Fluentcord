@@ -10,31 +10,27 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Fluentcord;
 
-public partial class App : Application
-{
+public partial class App : Application {
     private ServiceProvider? _serviceProvider;
 
-    public static T GetService<T>() where T : class
-    {
-        if ((Current as App)!._serviceProvider!.GetService(typeof(T)) is not T service)
+    public static T GetService<T>() where T : class {
+        if ((Current as App)!._serviceProvider!.GetService(typeof(T)) is not T service) {
             throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
+        }
 
         return service;
     }
 
-    public override void Initialize()
-    {
+    public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
-    {
+    public override void OnFrameworkInitializationCompleted() {
         IServiceCollection services = new ServiceCollection();
         // Register windows
         services.AddSingleton<MainWindowViewModel>();
-        services.AddSingleton<MainWindow>(serviceProvider => new MainWindow
-        {
-            DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
+        services.AddSingleton<MainWindow>(serviceProvider => new MainWindow {
+            DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
         });
 
         // Register view models
@@ -52,8 +48,7 @@ public partial class App : Application
         // Build the services
         _serviceProvider = services.BuildServiceProvider();
 
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             // Line below is needed to remove Avalonia data validation.
             // Without this line you will get duplicate validations from both Avalonia and CT
             BindingPlugins.DataValidators.RemoveAt(0);
